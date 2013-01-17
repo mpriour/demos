@@ -1,0 +1,41 @@
+/*margin and padding on body element
+ can introduce errors in determining
+ element position and are not recommended;
+ we turn them off as a foundation for YUI
+ CSS treatments. */
+
+h1, h2
+{
+	font-size: 116%;
+	color: #333366;
+	text-transform: uppercase;
+	font-weight:bold;
+}
+h3
+{
+	color: #333366;
+	font-weight:bold;
+	margin-bottom:0.33em;
+}
+strong{
+	font-weight:bold;
+}
+
+/*Change default size of left column to 220 by dividing 220 by 13 and by 13.3333 for IE */ 
+.yui-t2 .yui-b {
+    float: left;
+    width: 17.8231em; 
+	* width: 17.4004em;
+}
+
+/*Set margin of main content area to new left column size plus 0.1 em for standard browsers and IE */ 
+.yui-t2 #yui-main .yui-b {
+    margin-left: 18.8231em; 
+	* margin-left: 18.4004em;
+}
+/*Removes default 10 px left and right margins on doc3 yui layout, removes most of scroll bars, and sets the width where window will have a h scroll */ 
+#doc3 {
+	margin: auto;
+	overflow: hidden;
+	min-width: 650px;
+}

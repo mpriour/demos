@@ -1,0 +1,54 @@
+#sidebar p {margin-bottom: 0.5em;}
+#legend ul {padding-left: 1em;}
+#legend li img {padding-right: 2px;}
+/*styles for functions */
+#linkWindow {
+	background-color:#ffeac0;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	position:absolute;
+	top:170px;
+	right:50px;
+	height:85px;
+	width:370px;
+	display:none;
+}
+#linkContent {
+	position:absolute;
+	top:170px;
+	right:50px;
+	height:75px;
+	width:360px;
+	border:solid 2px silver;
+	padding:4px;
+	text-align:center;
+	display:none;
+}
+#closer {
+	position:absolute;
+	top:2px;
+	right:2px;
+}
+.linkText {
+	position:relative;
+	top:1.25em;
+	font-size:93%;
+}
+#tbPermalink {
+	width:340px;
+	font-size:x-small;
+}
+.infoTitle {font-size: 108%; font-weight: bold;}
+#locationInfo, #headstartInfo, #capacityInfo, #infantsInfo, #eveningInfo {margin: .5em 0 1em 0; padding: .5em;}
+#locationInfo  {background-color: #D8DAFF;}
+#headstartInfo  {background-color: #FFEBCC;}
+#capacityInfo {background-color: #FBE8E9;}
+#infantsInfo  {background-color: #F9D9EE;}
+#eveningInfo  {background-color: #D6F3FF;}
+#introText ul {padding: 0 0 1em 1.5em;}
+#introText li {list-style-type: disc; }
+.blue {color: #333366;}
+#credits {color: #999999;}
+#logo {	float: left;
+	padding: 10px;}
+/* old infant background #E4D3EF; capacity darker red option FFB2B3 old blue background DBF4D7 old location C4E9F7*/

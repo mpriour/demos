@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Untitled Document</title>
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADuABKs6DHT0hgIY03r7VNRSE2K3OYzyUjd_aWCIkg7zNGdFMGRRML2i4-j_WcvQM2S2-xIT6JJx0ww" type="text/javascript">
+        </script>
+	<script src="../common/js/common.js" type="text/javascript"></script>
+	<script src="../common/js/GnocdcBase.js" type="text/javascript"></script>	
+	<script src="js/Style.js" type="text/javascript"></script>
+	<script src="js/StyleManager.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var icon1 = buildGIcon('../Markers/Capacity/Large16x16.png',16,16,null);
+		var icon2 = buildGIcon('../Markers/Capacity/Small16x16.png',16,16,null);
+/*
+		var myStyles = new Gnocdc.StyleManger();
+		var ruleL = new Gnocdc.StyleRule({rule:function(a){return (a>10)},icon:icon1});
+		var ruleS = new Gnocdc.StyleRule({rule:function(a){return (a<=10)},icon:icon2});
+		var style1 = new Gnocdc.Style({rules:[ruleL,ruleS],name:"Capacity"});
+		myStyles.addStyles([style1]);
+*/
+		var myStyles = new Gnocdc.StyleManager([new Gnocdc.Style({rules:
+			[new Gnocdc.StyleRule({
+				rule: function(a){
+					return (a > 10)
+				},
+				iconSet: {
+					icon: icon1
+				}
+			}),
+			new Gnocdc.StyleRule({rule:function(a){return (a<=10)},iconSet:{icon:icon2}})],name:"Capacity"})]);
+		function test(){
+			document.getElementById('lcap').src = myStyles.styleMap['Capacity'].getIcon(11).image;
+			document.getElementById('scap').src = myStyles.styleMap['Capacity'].getIcon(9).image;
+			document.getElementById('def1').src = myStyles.styleMap['default'].getIcon().image;
+			document.getElementById('def2').src = Gnocdc.Style.DefaultStyle.getIcon().image;
+			document.getElementById('lcap1').src = myStyles.getStyleByMatch('Cap').rules[0].getIcon().image;
+			document.getElementById('scap1').src = myStyles.getStyleByMatch(function(a,b){return(a.name==b)},'Capacity').rules[1].getIcon().image;
+			document.getElementById('def3').src = myStyles.getStyleByMatch('name',{name:'defa'}).rules[0].getIcon().image;
+		}
+	</script>
+	<body onload="test()">
+		<div id="testResults">
+			<div>
+				<h2>From Keys</h2>
+				<p>Large Capacity [test(11)]:<img id="lcap" src="" /></p>
+				<p>Small Capacity [test(9)]:<img id="scap" src="" /></p>
+				<p>Default from key:<img id="def1" src="" /></p>
+				<p>Default from constant:<img id="def2" src="" /></p>
+			</div>
+			<div>
+			<h2>From Match</h2>
+			<p>Large Capacity from string ['Cap']:<img id="lcap1" src="" /></p>
+				<p>Small Capacity from function [result=true]:<img id="scap1" src="" /></p>
+				<p>Default from object key ['name',{name:'defa'}]<img id="def3" src="" /></p>
+			</div>
+		</div>
+	</body>
+</html>

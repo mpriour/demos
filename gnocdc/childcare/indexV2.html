@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Child Care Environmental Scanner</title>
+        <!-- Source File -->
+        <script type="text/javascript" src="../common/yui/yuiloader/yuiloader-min.js">
+        </script>
+        <!-- The Google Maps API. Need to put the correct key in for your site -->
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAA5k2Twnw0jckKnqSAoOP-jBQdWHop_7tPrnsdQTU5ENblAN3tcRT9jpS8JrkWv6YooIscQdf0WGkWmw" type="text/javascript">
+        </script>
+        <link rel="stylesheet" href="../common/styles/commonV2.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="childcare.css" type="text/css" />
+        <script type="text/javascript" src="../common/js/GnocdcLib/Gnocdc-all.js">
+        </script>
+        <script src="../common/js/commonV2.js" type="text/javascript">
+        </script>
+        <script src="../common/js/dynamicMarkerMaps.js" type="text/javascript">
+        </script>
+        <script src="childcare.js" type="text/javascript">
+        </script>
+        <style type="text/css">
+            /* Specifically set the height of fixed height components
+             * Currently uses pixels but properly calculated em 's would also work.
+             */ #hd {
+                height: 65px;
+            } #ft {
+                height: 15px;
+            } #map-hdr {
+                height: 19px;
+            } #map-ftr {
+                height: 32px;
+            } #map {
+                background-color: #d2e8ec;
+            }
+        </style>
+        <script type="text/javascript">
+            /*REQUIRED - Controls where the map should intially be zoomed & centered to.
+             * type can either be a map type constant (ie G_PHYSICAL_MAP) or a
+             * string name associated with a default or custom map type
+             */
+            IntialMapView = {
+                lat: 29.996491,
+                lon: -90.024376,
+                type: G_PHYSICAL_MAP,
+                zoom: 11
+            };
+            
+            /*Variables for dynamic marker applications*/
+            GeoJsonPath = "childcare-geo.js";
+            MarkerLabelField = 'FACILITY_N';
+            
+            YuiLoader.insert();
+            
+            /*REQUIRED - Controls what functions intialized the page and in what order
+             * This is ussually InitLayout with the optional css override path
+             * followed by any application specific startup functions
+             */
+            function PageLoad(){
+                InitLayout();
+                LoadMap(IntialMapView);
+                InitialStyleId = GetChooserStyleId();
+                LoadJsonMarkers(GeoJsonPath);
+            }
+        </script>
+    </head>
+    <body onunload="GUnload()">
+        <div id="doc3" class="yui-t2">
+            <div id="hd">
+                <img id="gnocdcLogo" alt="GNOCDC Logo" src="../IMAGES/gnocdclogo.png" /> <img id="logo" alt="Agenda for Children Logo" src="IMAGES/AgendaLogo.png" />
+                <div id="titleWrapper">
+                    <h1 class="heading">Child Care Environmental Scanner</h1>
+                    <h2 class="subheading">Orleans Parish</h2>
+                </div>
+            </div>
+            <div id="bd">
+                <div id="yui-main">
+                    <div class="yui-b">
+                        <div id="map-hdr">
+                        </div>
+                        <div id="map">
+                            Map is loading...
+                        </div>
+                        <div id="map-ftr">
+                            <p><strong>Source Citation:</strong> Compiled by Agenda for Children based on records from the Louisiana Department of
+Social Services, Bureau of Licensing and U.S. Department of Health and Human Services, Office of Head Start. Available at www.gnocdc.org.</p>
+							<p id="credits">Credits: Producer: Joy Bonaguro; Content: Teresa Falgoust; Editor: Denice Ross; Programmer: Matt Priour; GIS Consultant: James Fee.</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="sidebar" class="yui-b">
+                <div id="introText">
+                    <h3>How to use this map:</h3>
+                    <ul>
+                        <li>
+                            Drag the map with your mouse
+                        </li>
+                        <li>
+                            Double-click to zoom
+                        </li>
+                        <li>
+                            Click on a dot for more details
+                        </li>
+                    </ul>
+                </div>
+                    <div id="dynamicContent">
+                        <p>
+                            <strong class="blue">On the map:</strong> 134 licensed child care centers (including Head Start)
+                        </p>
+						 <p>
+                            <strong class="blue">Not on the map:</strong> family child care homes, in-home care, and many
+school-based pre-K programs.
+ Learn more about child care options...
+                        </p>
+                        <p>
+                            <strong class="blue">View by:</strong>
+                        </p>
+                        <div id="legend">
+                            <div>
+                                <input type="radio" name="chooser" value="capacity" />Licensed Capacity
+                                <div id="capacity" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="../Markers/Capacity/Small8x8.png" alt="Small centers" />Small
+                                        </li>
+                                        <li>
+                                            <img src="../Markers/Capacity/Medium8x8.png" alt="Medium centers" />Medium
+                                        </li>
+                                        <li>
+                                            <img src="../Markers/Capacity/Large8x8.png" alt="Large centers" />Large
+                                        </li>
+                                    </ul>
+                                    <div id="capacityInfo">
+                                        <h3>What does licensed capacity show?</h3>
+                                        <p>
+Licensed capacity indicates how large a facility is and may indicate the saturation of child care slots in an area. Based on square footage of the building and outdoor space, Louisiana DSS establishes a maximum number of children permitted at a center.  However, not all centers operate at full capacity&#8212;they may be understaffed, unable to fill all slots, or desire more space per child.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="chooser" value="headstart" />Head Start status
+                                <div id="headstart" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="../Markers/HeadStart/HeadStart8x8.png" alt="blue circle with lowercase white h" />Head Start
+                                        </li>
+                                        <li>
+                                            <img src="../Markers/HeadStart/EarlyHeadStart8x8.png" alt="blue circle with lowercase white h" />Early Head Start
+                                        </li>
+                                        <li>
+                                            <img src="../Markers/HeadStart/CombinedHeadStart8x8.png" alt="blue circle with lowercase white h" />Combined
+                                        </li>
+                                        <li>
+                                            <img src="../Markers/Black8x8.png" alt="black circle" />None
+                                        </li>
+                                    </ul>
+                                    <div id="headstartInfo">
+                                        <h3>What is Head Start and Early Head Start?</h3>
+                                        <p>
+Head Start is a free, federally-funded child development program for low-income children. It provides educational and supportive services such as health, nutrition, and social services. "Traditional" Head Start programs serve preschoolers, while Early Head Start programs serve children ages 0-3 and pregnant women.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="chooser" value="infants" />Infants Served
+                                <div id="infants" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="../Markers/Infants/Infant8x8.png" alt="blue circle with white baby" />Yes
+                                        </li>
+                                        <li>
+                                            <img src="../Markers/Black8x8.png" alt="black circle" />No
+                                        </li>
+                                    </ul>
+                                    <div id="infantsInfo">
+                                        <h3>What counts as an infant and why don't all centers serve them?</h3>
+                                        <p>
+Infants are children ages 6 weeks to 12 months. Infant care can be cost-prohibitive to offer because lower child to staff ratios are necessary.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="chooser" value="evenings" />Evening Hours
+                                <div id="evenings" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="../Markers/Evening/Evening8x8.png" alt="blue circle with lowercase white h" />Yes
+                                        </li>
+                                        <li>
+                                            <img src="../Markers/Black8x8.png" alt="black circle" />No
+                                        </li>
+                                    </ul>
+                                    <div id="eveningInfo">
+                                        <h3>What are evening hours?</h3>
+                                        <p>
+Any center that provides care after 9 p.m. is considered to offer evening hours. Some of these even operate 24 hours a day.
+                                        </p>
+                                        <h3>Why are evening and weekend hours important?</h3>
+                                        <p>
+Restaurant workers, casino employees, hospital staff, and musicians&#8212;just to name a few&#8212;all have evening and weekend hours. Because typical hours are 7:30am to 6pm, parents who work nontraditional schedules often have a more difficult search for child care.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+							                            <div>
+                                <input type="radio" name="chooser" value="location" checked="checked" />Location Only
+                                <div id="location" class="legendDiv">
+                                    <div id="locationInfo">
+                                        <h3>Does location matter for child care centers?</h3>
+                                        <p>
+                                            Proximity to home or work is one factor, especially for parents using public transportation. But parents also look for child care that is high-quality, safe, and affordable, and that meets their needs (e.g. infant care or evening hours).
+                                        </p>
+                                        <h3>Is it easier to open a child care center in parts of town with no centers?</h3>
+                                        <p>
+It depends. Some neighborhoods with few centers may not need more because there aren't many children or places of employment. In contrast, neighborhoods with many centers may still need more. As a result, potential center owners need to learn as much as they can about a particular location.
+                                        </p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="ft">
+                <div class="copyright">
+                    Copyright &copy; 2000-9 All rights reserved. <a href="javascript: MM_openBrWindow('TermsOfUse.html','','toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=550,height=450')">Terms of Use</a>
+                </div>
+            </div>
+            <div id="mapActions">
+                <div class="bd hlist">
+                    <ul>
+                        <li>
+                            <img src="../maps/images/Send.png" alt="Send" id="imgSend" /><a href="javascript:SendMapLink(MyMap);">Send Map</a>
+                        </li>
+                        <li>
+                            <img src="../maps/images/Link.png" alt="Link" id="imgLink" /><a href="javascript:CreateMapLink(MyMap);">Link To The Map</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End of Doc3 --><!-- Popup Window Template -->
+        <div id="infoWindowWrapper" class="hidden">
+            <div class="infoWindow">
+                <p>
+                    <span class="infoTitle">{FACILITY_N}</span>
+                    <br/>
+                    <span class="address">{ARC_Street}
+                        <br/>
+                        {LCITY}&nbsp;{LSTATE},{ARC_Zone}
+                    </span>
+                    <br/>
+                    <strong>Main phone:&nbsp;</strong>{PHONE_NUM}
+                    <br/>
+                </p>
+                <p>
+                    <strong>Licensed capacity:&nbsp;</strong>{CAPACITY}
+                    <br/>
+                    <strong>Infants served:&nbsp;</strong>{Infants}
+                    <br/>
+                    <strong>Evening hours:&nbsp;</strong>{Evening}
+                    <br/>
+                    <strong>Head Start:&nbsp;</strong>{HeadStart}
+                </p>
+            </div>
+        </div>
+        <!-- End of Popup Window Template -->
+        <!-- Link Overlay Window -->
+        <div id="linkWindow" class="hidden">
+        </div>
+        <div id="linkContent" class="hidden">
+            <img id="closer" alt="Close Window" src="../Maps/IMAGES/close.png" onclick="CloseWindow();"/>
+            <p class="linkText">
+                Copy the link from the text box below for your own use:
+                <br/>
+                <input type="text" id="tbPermalink" />
+            </p>
+        </div><!-- End link window -->
+    </body>
+</html>

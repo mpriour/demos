@@ -1,0 +1,17 @@
+#sidebar p {margin-bottom: 0.5em;}
+#legend ul {padding-left: 1em;}
+#legend li img {padding-right: 2px;}
+.infoTitle {font-size: 108%; font-weight: bold;}
+#englishprofInfo, #districtInfo, #enrollmentInfo, #gradelevelInfo, #freereducedInfo, #locationInfo {margin: .5em 0 1em 0; padding: .5em .5em .5em .5em;}
+#districtInfo {background-color: #C4E9F7;}
+#enrollmentInfo  {background-color: #FBE8E9;}
+#enrollmentInfo li {list-style: disc;}
+#gradelevelInfo  {background-color: #DBF4D7;}
+#freereducedInfo  {background-color: #FFEBCC;}
+#englishprofInfo  {background-color: #E4D3EF; }
+#credits {color: #999999; font-size: 85%; padding-top; 5px;}
+.blue {color: #333366;}
+#introText ul {padding: 0 0 1em 1.5em;}
+#introText li {list-style-type: disc; }
+.smallText {font-size: 85%; }
+#locationInfo {background-color: #D8DAFF; margin: .5em 0 0 0; padding: .5em;}

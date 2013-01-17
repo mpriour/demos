@@ -1,0 +1,17 @@
+#sidebar p {margin-bottom: 0.5em;}
+#legend ul {padding-left: 1em;}
+#legend li img {padding-right: 2px;}
+.infoTitle {font-size: 108%; font-weight: bold;}
+#headstartInfo, #capacityInfo, #infantsInfo, #eveningInfo, #classInfo {margin: .5em 0 1em 0; padding: .5em;}
+#locationInfo  {background-color: #D8DAFF; margin: .5em 0 0 0; padding: .5em;}
+#headstartInfo  {background-color: #FFEBCC;}
+#capacityInfo {background-color: #FBE8E9;}
+#infantsInfo  {background-color: #F9D9EE;}
+#eveningInfo  {background-color: #D6F3FF;}
+#classInfo  {background-color: #DBF4D7;}
+#credits {color: #999999; font-size: 85%; padding-top; 5px;}
+#logo {	float: left;
+	padding: 10px;}
+.blue {color: #333366;}
+#introText ul {padding: 0 0 1em 1.5em;}
+#introText li {list-style-type: disc; }

@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>&lt;GNOCDC&gt; Community Clinics</title>
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADuABKs6DHT0hgIY03r7VNRSE2K3OYzyUjd_aWCIkg7zNGdFMGRRML2i4-j_WcvQM2S2-xIT6JJx0ww" type="text/javascript">
+        </script>
+        <!-- common includes  -->
+        <script type="text/javascript" src="../common/js/common.js">
+        </script>
+        <script src="../common/js/css_browser_selector.js" type="text/javascript">
+        </script>
+        <link href="../common/styles/common.css" rel="stylesheet" type="text/css" />
+        <!-- page specific includes -->
+		<script type="text/javascript" src="../common/js/markermanager.js"></script>
+		<script type="text/javascript" src="../common/js/elabel.js"></script>
+		<script type="text/javascript" src="../common/js/pdmarker.js"></script>
+		<script type="text/javascript" src="../common/js/jsr_class.js"></script>
+		<script type="text/javascript" src="js/marker-explode.js"></script>
+        <script type="text/javascript" src="js/clinicsV4.js">
+        </script>
+		<link href="styles/clinicsV1.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body onload="ClinicMapLoad();" onunload="PageUnload();">
+        <div id="titleBlock">
+            <img alt="GNOCDC Logo" src="../IMAGES/gnocdclogo.png" /><h1 id="heading">Orleans Parish Primary Care Community Clinics</h1>
+            <h2 id="subheading"></h2>
+        </div>
+        <div id="content">
+            <!----><!-- ************************ -->
+            <div id="map-wrapper">
+                <div id="mapHeader">
+                    <div id="mapActions">
+                        <ul>
+                            <li>
+                                <img src="../images/Print.png" alt="Print" id="imgPrint" /><a href="javascript:printMap();">Print Map</a>
+                            </li>
+                            <li>
+                                <img src="../images/Send.png" alt="Send" id="imgSend" /><a href="javascript:sendMapLink();">Send Map</a>
+                            </li>
+                            <li>
+                                <img src="../images/Link.png" alt="Link" id="imgLink" /><a href="javascript:createMapLink();">Link To The Map</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="map">
+                </div>
+		<!-- ************************ -->
+        <div id="mapFooter">
+            <span id="footerLogo"><img src="" /></span><strong>Source:</strong>
+            THE SOURCE
+            <br/>
+            <strong>Next Update:</strong>
+            NEXT UPDATE DATE
+        </div>
+            </div>
+            <!-- ************************ -->
+        <div id="mapSide">
+            <h2>Welcome</h2>
+            <p>
+                You can drag the map with your mouse and double click to zoom.
+            </p>
+            <h2>60 primary community care clinics in Orleans Parish</h2>
+            <p>
+                Clinics by eligibility:
+            </p>
+            <ul id="clinicList">
+            <li>
+                <img src="../markers/1NoRestrictions16x16.png" />No Restrictions &nbsp;<span class="count">32</span>
+            </li>
+            <li>
+                <img src="../markers/4Students16x16.png" />Students Only &nbsp;
+					<img class="infoIcon" src="../images/question_circle.png" alt="Click For More Information" onclick="MM_openBrWindow('MORE-INFO-HERE.html','','toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=550,height=450')" />
+					<span class="count">8</span>
+            </li>
+            <li>
+                <img src="../markers/3Children16x16.png" />Children & Youth Only &nbsp;
+					<img class="infoIcon" src="../images/question_circle.png" alt="Click For More Information" onclick="MM_openBrWindow('MORE-INFO-HERE.html','','toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=550,height=450')" />
+					<span class="count">14</span>
+            </li>
+            <li>
+                <img src="../markers/2Adults16x16.png" />Adults Only &nbsp;
+					<img class="infoIcon" src="../images/question_circle.png" alt="Click For More Information" onclick="MM_openBrWindow('MORE-INFO-HERE.html','','toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=550,height=450')" />
+					<span class="count">5</span>
+            </li
+            <li>
+                <img src="../markers/5Homeless16x16.png" />Homeless Men Only &nbsp;
+					<img class="infoIcon" src="../images/question_circle.png" alt="Click For More Information" onclick="MM_openBrWindow('MORE-INFO-HERE.html','','toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=550,height=450')" />
+					<span class="count">1</span>
+            </li>
+            </ol>
+			<p>
+				<input type="checkbox" id="cboxRoutes" onclick="toggleRoutes();" />View Transportation Routes
+			</p>
+			<div class="smallText" id="extraInfo">
+				
+			</div>
+			<p>
+				What's included on the map? <a href="#">Learn More &raquo;</a>
+			</p>
+			<p>
+				Interested in the health care system rebuild? <a href="#">Learn More &raquo;</a>
+			</p>
+			<p>
+				<img id="excelIcon" src="../images/Excel.png" alt="Microsoft Excel icon" />
+				<a href="#">Register to download data</a>
+			</p>
+			</div>
+            <!-- ************************ -->
+            <div id="pageFooter">
+                <div id="footerBar">
+                    <p>
+                        <span class="copyright">Copyright &copy; 2000-8 All rights reserved. <a href="javascript: MM_openBrWindow('TermsOfUse.html','','toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=550,height=450')">Terms of Use</a></span>
+                    </p>
+                </div>
+            </div>
+            <!-- ************************ -->
+        </div>
+        <!-- ************************ -->
+        <div id="linkWindow">
+        </div>
+        <div id="linkContent">
+            <img id="closer" alt="Close Window" src="../Maps/IMAGES/close.png" onclick="closeWindow();"/>
+            <p class="linkText">
+                Copy the link from the text box below for your own use:
+                <br/>
+                <input type="text" id="tbPermalink" />
+            </p>
+        </div>
+        <!-- ************************ -->
+		<div id="waitBox">Loading Markers..<br />
+		<img src="../images/blue-loading.gif" alt="spinning load circle" />
+		</div>
+		<!-- ********************* -->
+		<div id="infoWindowWrapper">
+		<div class="infoWindow">
+			<p>
+			<span class="infoTitle"></span><br />
+			<span class="address"></span><br />
+			<strong>Main Phone:&nbsp;</strong><span class="phone"></span><br />
+			<strong>Fax:&nbsp;</strong><span class="fax"></span>
+			</p>
+			<p>
+				<strong>Hours:&nbsp;</strong><span class="hours"></span><br />
+				<strong>Email:&nbsp;</strong><span class="email"></span><br />
+				<strong>Website:&nbsp;</strong><span class="website"></span>								
+			</p>
+			<p>
+				<strong><u>Description of Facility</u></strong><br />
+				<span class="facility"></span>
+			</p>
+			<p>
+				<strong>Eligibility:&nbsp;</strong><span class="eligibility"></span>
+			</p>
+			<p>
+				<strong>Intake procedure:&nbsp;</strong><span class="intake"></span>
+			</p>
+			
+		</div>
+		</div>
+		<!-- ********************* -->
+		<div id="directions">
+<TABLE BORDER="0" CELLPADDING="0" CELLSPACING="0" width="400" align="center">
+  <tr>
+    <td bgcolor="#333366"><br>    </td>
+  </tr>
+  <tr>
+    <td valign="top" class="popuppad">
+      <p class="pagetitle">Directions</p>
+      <ol>
+        <li>Double click to zoom in &amp; see <strong>counts by census block</strong> for Mail, Road Home 1  and Road Home 2 &amp; 3 closings:<br>
+          <br>
+        <img src="../IMAGES/HelpCounts.png" alt="Zoom in to see counts by block" width="235" height="210"></li>
+        <li>Click  the map buttons to see different data sets:<br>
+          <br>
+        <img src="../IMAGES/HelpButtons.png" alt="Map buttons" width="332" height="19"></li>
+        <li>Click  and &quot;drag&quot; the map  to move it.</li>
+      </ol>
+      <form name="">
+        <div align="center">
+          <p>
+            <input type=button value="Close" onclick="toggle('directions')" name="button">
+          </p>
+        </div>
+      </form>
+      <p></p></td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#333366">&nbsp;</td>
+  </tr>
+</table>			
+		</div>
+		<!-- ********************* -->
+  <div id="testWindow" style="position:absolute;top:100px;left:500px;background-color:white;">
+  <h3 id="mcount"></h3>
+  </div>
+  
+    </body>
+</html>

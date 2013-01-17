@@ -1,0 +1,8 @@
+<OGRVRTDataSource>
+    <OGRVRTLayer name="childcare">
+        <SrcDataSource>childcare09Q3.csv</SrcDataSource>
+        <GeometryType>wktPoint</GeometryType>
+        <LayerSRS>EPSG:4326</LayerSRS>
+        <GeometryField encoding="PointFromColumns" x="Longitude" y="Latitude"/>
+    </OGRVRTLayer>
+</OGRVRTDataSource>

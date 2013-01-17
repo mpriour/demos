@@ -1,0 +1,123 @@
+	//create & add styles
+    styleMgmr = new Gnocdc.StyleManager([
+	new Gnocdc.Style({
+        name: 'location',
+        rules: [new Gnocdc.StyleRule({
+            rule: true,
+            icon: buildGIcon('../Markers/Black16x16.png', 16, 16),
+            minZoom: 13
+        }), new Gnocdc.StyleRule({
+            rule: true,
+            icon: buildGIcon('../Markers/Black8x8.png', 8, 8),
+            maxZoom: 12
+        })]
+    }),
+	new Gnocdc.Style({
+        name: 'capacity',
+        rules: [
+		new Gnocdc.StyleRule({
+            rule: 'Small',
+            icon: buildGIcon('../Markers/Capacity/Small16x16.png', 16, 16),
+            minZoom: 13
+        }), 
+		new Gnocdc.StyleRule({
+            rule: 'Medium',
+            icon: buildGIcon('../Markers/Capacity/Medium16x16.png', 16, 16),
+            minZoom: 13
+        }), 
+		new Gnocdc.StyleRule({
+            rule: 'Large',
+            icon: buildGIcon('../Markers/Capacity/Large16x16.png', 16, 16),
+            minZoom: 13
+        }), 
+		new Gnocdc.StyleRule({
+            rule: 'Small',
+            icon: buildGIcon('../Markers/Capacity/Small8x8.png', 8, 8),
+            maxZoom: 12
+        }), 
+		new Gnocdc.StyleRule({
+            rule: 'Medium',
+            icon: buildGIcon('../Markers/Capacity/Medium8x8.png', 8, 8),
+            maxZoom: 12
+        }), 
+		new Gnocdc.StyleRule({
+            rule: 'Large',
+            icon: buildGIcon('../Markers/Capacity/Large8x8.png', 8, 8),
+            maxZoom: 12
+        })]
+    }), 
+	new Gnocdc.Style({
+        name: 'headstart',
+        rules: [
+		new Gnocdc.StyleRule({
+            rule: 'HS',
+            icon: buildGIcon('../Markers/HeadStart/HeadStart16x16.png', 16, 16),
+            minZoom: 13
+        }), 
+		new Gnocdc.StyleRule({
+            rule: 'HS',
+            icon: buildGIcon('../Markers/HeadStart/HeadStart8x8.png', 8, 8),
+            maxZoom: 12
+        }),
+		new Gnocdc.StyleRule({
+            rule: 'EHS',
+            icon: buildGIcon('../Markers/HeadStart/EarlyHeadStart16x16.png', 16, 16),
+            minZoom: 13
+        }), 
+		new Gnocdc.StyleRule({
+            rule: 'EHS',
+            icon: buildGIcon('../Markers/HeadStart/EarlyHeadStart8x8.png', 8, 8),
+            maxZoom: 12
+        }),
+		new Gnocdc.StyleRule({
+            rule: 'HS/EHS',
+            icon: buildGIcon('../Markers/HeadStart/CombinedHeadStart16x16.png', 16, 16),
+            minZoom: 13
+        }), 
+		new Gnocdc.StyleRule({
+            rule: 'HS/EHS',
+            icon: buildGIcon('../Markers/HeadStart/CombinedHeadStart8x8.png', 8, 8),
+            maxZoom: 12
+        })]
+    }), 
+	new Gnocdc.Style({
+        name: 'evenings',
+        rules: [new Gnocdc.StyleRule({
+            rule: function(a){
+                return (a)
+            },
+            icon: buildGIcon('../Markers/Evening/Evening16x16.png', 16, 16),
+            minZoom: 13
+        }), new Gnocdc.StyleRule({
+            rule: function(a){
+                return (a)
+            },
+            icon: buildGIcon('../Markers/Evening/Evening8x8.png', 8, 8),
+            maxZoom: 12
+        })]
+    }),
+	new Gnocdc.Style({
+        name: 'infants',
+        rules: [new Gnocdc.StyleRule({
+            rule: function(a){
+                return (a)
+            },
+            icon: buildGIcon('../Markers/Infants/Infants16x16.png', 16, 16),
+            minZoom: 13
+        }), new Gnocdc.StyleRule({
+            rule: function(a){
+                return (a)
+            },
+            icon: buildGIcon('../Markers/Infants/Infant8x8.png', 8, 8),
+            maxZoom: 12
+        })]
+    })
+	],
+	{
+        defaultStyle: new Gnocdc.Style({
+            name: 'default',
+            defaultIcon: buildGIcon('../Markers/Black8x8.png', 8, 8),
+        })
+    }
+	);
+    //attribute keys tell what attribute to base getIconFromAttributes function on for each radio button

@@ -1,0 +1,126 @@
+/* styles for parish tabs */ 
+.yui-nav a {
+    text-decoration: none;
+    color: black;
+    padding: 0 5px 0 5px;
+    font-size: 108%; /* 14px */
+	margin-bottom:1px;
+} 
+.yui-nav li {
+    border: solid 1px orange;
+    border-bottom: none;
+} 
+.yui-nav .selected {
+    border-bottom: none;
+    background-color: #f7d29b;
+    font-weight: bold;
+} 
+.yui-nav .selected a{
+	margin-bottom:2px;
+}
+.yui-content {
+    height: 0px;
+}
+/*styles for link to the map functions */
+#linkWindow {
+	background-color:#ffeac0;
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	position:absolute;
+	top:170px;
+	right:50px;
+	height:85px;
+	width:370px;
+	display:none;
+}
+#linkContent {
+	position:absolute;
+	top:170px;
+	right:50px;
+	height:75px;
+	width:360px;
+	border:solid 2px silver;
+	padding:4px;
+	display:none;
+}
+#closer {
+	position:absolute;
+	top:2px;
+	right:2px;
+}
+.linkText {
+	position:relative;
+	top:1.25em;
+	font-size:93%;
+}
+#tbPermalink {
+	width:340px;
+	font-size:x-small;
+}
+/* styles for standard page elements*/
+.hidden{display:none;}
+
+#hd{
+	text-align:center;
+	border-top:15px #333366 solid;
+}
+#gnocdcLogo {
+	float: left;
+	padding: 10px;
+}
+.subheading {
+	text-transform: none;
+}
+#titleWrapper {
+	padding-top: 1em;
+}
+#ft{
+	text-align:center;
+	vertical-align:top;
+	font-size:77%;
+	height:15px;
+	background-color:#333366;
+	overflow:hidden;
+}
+#map {margin-right: 5px;}
+#map-ftr{
+	margin-right: 5px;
+	font-size:85%;
+}
+.copyright{
+	color:white;
+}
+.copyright a{
+	text-decoration:underline;
+	color:white;
+	cursor:pointer;
+}
+.copyright a:hover{
+	color:gray;
+}
+
+#sidebar{
+	overflow:auto;
+	padding-left:5px;
+	padding-right:5px;
+}
+
+/* styles for print, email and send tools*/
+.hlist {
+	float: right;
+	font-size:85%;
+}
+.hlist ul {
+	list-style-type:none;
+	padding-right:1em;
+}
+.hlist li {
+	display:inline;
+}
+#mapActions img {padding: 0 5px 0 5px;}
+/* hides the overflow from child map types in heirachal control*/
+#hmtctl
+{
+	/*overflow:hidden;*/
+}
+

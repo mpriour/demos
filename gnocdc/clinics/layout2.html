@@ -1,0 +1,650 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> 
+<title>Yahoo Layout Example</title> 
+<style type="text/css"> 
+/*margin and padding on body element
+  can introduce errors in determining
+  element position and are not recommended;
+  we turn them off as a foundation for YUI
+  CSS treatments. */
+body
+{
+	margin: 0;
+	padding: 0;
+	font-family: "Trebuchet MS" , Arial, sans-serif;
+	font-size: 12px;
+	text-align: left;
+}
+
+h1, h2
+{
+	font-size: 15px;
+	color: #333366;
+	text-transform: uppercase;
+}
+
+h3
+{
+	font-size: 12px;
+	color: #0076C0;
+}
+.hidden{display:none;}
+#titleBlock
+{
+	padding-bottom: 2px;
+	text-align: center;
+}
+#titleBlock img
+{
+	float: left;
+	margin: 10px;
+}
+#titleBlock h1, #titleblock h2
+{
+	margin-bottom: -1em;
+}
+#subheading
+{
+	text-transform: none;
+}
+#mapActions
+{
+	float: right;
+}
+#mapActions ul
+{
+	list-style-type: none;
+	padding-right: 1em;
+	bottom: 0px;
+}
+#mapActions li
+{
+	display: inline;
+}
+#mapWrapper
+{
+	border: solid 1px #f7d29b;
+}
+#mapHeader
+{
+	height: 1.5em;
+}
+#map {height:100%;
+                border: solid 1px orange;
+				border-top:2px #f7d29b;
+            }
+#hd
+{
+	border-top: solid 15px #333366;
+}
+
+/*styles for page footer */
+#pageFooter
+{
+	text-align: center;
+	font-size: 10px;
+	vertical-align: top;
+}
+#footerBar
+{
+	background-color: #333366;
+}
+.copyright
+{
+	color: #FFFFFF;
+}
+.copyright a
+{
+	color: #FFFFFF;
+}
+
+#infoWindowWrapper{ display:none;}
+
+/*styles for tabs */
+.yui-nav a
+{
+	text-decoration: none;
+	color: black;
+	padding: 0 5px 0 5px;
+	font-size: 14px;
+}
+.yui-nav li
+{
+	border: solid 1px orange;
+	border-bottom: none;
+}
+.yui-nav .selected
+{
+	border-bottom: none;
+	background-color: #f7d29b;
+	font-weight: bold;
+}
+.yui-content
+{
+	height: 0px;
+}
+
+/*new template that is the inverse of template 5 (240px on left)
+ *  '*' is IE hack due to diff in em calcs
+ */
+.yui-t3 div.main, .yui-t3 #yui-main
+{
+	float: right;
+	margin-left: -25em; /* IE: preserve layout at narrow widths */
+}
+
+.yui-t99 .yui-b
+{
+	float: left;
+	width: 18.4615em; *width:18.00em;}
+
+.yui-t99 div.main .yui-b, .yui-t99 #yui-main .yui-b
+{
+	margin-left: 19.4615em; *margin-left:19.125em;}
+
+div.main .yui-b
+{
+	float: none;
+	width: auto;
+}
+
+ 
+</style> 
+<script type="text/javascript" src="../common/yui/yuiloader/yuiloader-min.js"></script>
+<script type="text/javascript" src="../common/js/jsr_class.js"></script>
+ <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAADuABKs6DHT0hgIY03r7VNRSE2K3OYzyUjd_aWCIkg7zNGdFMGRRML2i4-j_WcvQM2S2-xIT6JJx0ww" type="text/javascript">
+        </script>
+	<script src="../common/js/common.js" type="text/javascript"></script>
+	<script src="../common/js/GnocdcBase.js" type="text/javascript"></script>	
+	<script src="js/Style.js" type="text/javascript"></script>
+	<script src="js/StyleManager.js" type="text/javascript"></script>
+	<script src="js/GMarkerHelper.js" type="text/javascript"></script>
+<script> 
+            /*GLOBALS*/
+			var _map, _mapEl, layout, bodyLayout;
+			var loader = new YAHOO.util.YUILoader({
+                require: ["base", "fonts","grids", "animation", "button", "datasource", "element", "layout", "menu", "tabview"],
+                loadOptional: true,
+                allowRollup: true,
+                timeout: 10000,
+                combine: true,
+                onSuccess: function(){
+                    YAHOO.util.Event.onDOMReady(InitLayout);
+                }
+            });
+		var defaultSettings = {
+        lat: 30.0114680972504,
+        lon: -89.9194729858441,
+        type: G_PHYSICAL_MAP.getName(true),
+        zoom: 11
+    };
+	var parishCenters = {
+		"Orleans":{lat:30.0114680972504,lon:-89.9194729858441,zoom:11},
+		"Jefferson":{lat:29.94958,lon:-90.445633,zoom:11},
+		"Plaquemines":{lat:29.699982,lon:-89.930649,zoom:11},
+		"St_Bernard":{lat:29.84124,lon:-89.714355,zoom:11},
+		"St_Charles":{lat:29.903758,lon:-90.44632,zoom:11}
+	};
+	//create & add styles
+     //headstart style
+	 var headstartStyle = new Gnocdc.Style({
+        name: 'headstart',
+        rules: [
+			new Gnocdc.StyleRule({
+            rule: /^EHS/,
+			iconSet:[{
+            icon: buildGIcon('../Markers/HeadStart/EarlyHeadStart16x16.png', 16, 16),
+            minZoom: 13},{icon: buildGIcon('../Markers/EarlyHeadStart/HeadStart8x8.png', 8, 8),
+            maxZoom: 12}]
+        }),
+		new Gnocdc.StyleRule({
+            rule: /HS\/EHS/,
+			iconSet:[{
+            icon: buildGIcon('../Markers/HeadStart/CombinedHeadStart16x16.png', 16, 16),
+            minZoom: 13},{icon: buildGIcon('../Markers/CombinedHeadStart/HeadStart8x8.png', 8, 8),
+            maxZoom: 12}]
+        }),
+		new Gnocdc.StyleRule({
+            rule: /HS/,
+			iconSet:[{
+            icon: buildGIcon('../Markers/HeadStart/HeadStart16x16.png', 16, 16),
+            minZoom: 13},{icon: buildGIcon('../Markers/HeadStart/HeadStart8x8.png', 8, 8),
+            maxZoom: 12}]
+        })
+		]
+    });
+	 
+	 styleMgmr = new Gnocdc.StyleManager([new Gnocdc.Style({
+        name: 'location',
+        rules: [new Gnocdc.StyleRule({
+            rule: true,
+			iconSet:[{
+            icon: buildGIcon('../Markers/Black16x16.png', 16, 16),
+            minZoom: 13
+        },{
+            icon: buildGIcon('../Markers/Black8x8.png', 8, 8),
+            maxZoom: 12
+        }]
+	})]
+    }), new Gnocdc.Style({
+        name: 'capacity',
+        rules: [new Gnocdc.StyleRule({
+            rule: 'Small',
+			iconSet:[{icon: buildGIcon('../Markers/Capacity/Small16x16.png', 16, 16),
+            minZoom: 13
+        },{icon: buildGIcon('../Markers/Capacity/Small8x8.png', 8, 8),
+            maxZoom: 12}]}), new Gnocdc.StyleRule({
+            rule: 'Medium',
+			iconSet:[{icon: buildGIcon('../Markers/Capacity/Medium16x16.png', 16, 16),
+            minZoom: 13},{icon: buildGIcon('../Markers/Capacity/Medium8x8.png', 8, 8),
+            maxZoom: 12}]
+        }), new Gnocdc.StyleRule({
+            rule: 'Large',
+			iconSet:[{icon: buildGIcon('../Markers/Capacity/Large16x16.png', 16, 16),
+            minZoom: 13},{icon: buildGIcon('../Markers/Capacity/Large8x8.png', 8, 8),
+            maxZoom: 12}]
+        })]
+    }),  new Gnocdc.Style({
+        name: 'evenings',
+        rules: [new Gnocdc.StyleRule({
+            rule: function(a){
+                return (a)
+            },
+			iconSet:[{icon: buildGIcon('../Markers/Evening/Evening16x16.png', 16, 16),
+            minZoom: 13},{icon: buildGIcon('../Markers/Evening/Evening8x8.png', 8, 8),
+            maxZoom: 12}]            
+        })],
+	  defaultIconSet:[{icon:buildGIcon('../Markers/Restrictions/5Homeless8x8.png', 8, 8),
+			maxZoom:12},{icon:buildGIcon('../Markers/Restrictions/5Homeless16x16.png', 16, 16),
+			minZoom:13}] 
+    })], {
+        defaultStyle: new Gnocdc.Style({
+            name: 'default',
+            defaultIconSet:[{icon: buildGIcon('../Markers/Black8x8.png', 8, 8),
+                maxZoom: 12},{icon: buildGIcon('../Markers/Black16x16.png', 16, 16),
+                minZoom: 13}] 
+        })
+    });
+	styleMgmr.addStyles(headstartStyle);
+	styleMgmr.addStyles(new Gnocdc.Style({name:'infants',rules:[new Gnocdc.StyleRule({rule:function(a){return(a)},
+		iconSet:[{icon:buildGIcon('../Markers/Infants/Infants16x16.png',16,16),minZoom:13},
+			{icon:buildGIcon('../Markers/Infants/Infant8x8.png',8,8),maxZoom:12}]
+	  })]
+  }));
+	//attribute keys tell what attribute to base getIconFromAttributes function on for each radio button
+	var attribKeys = {'location':'FACILITY_N','capacity':'CapacityRa','headstart':'HeadStart','evenings':'Evening','infants':'Infants'};
+	loader.insert();
+	
+function InitLayout() {
+    Dom = YAHOO.util.Dom,
+	Event = YAHOO.util.Event;
+ 
+    Event.onDOMReady(function(){
+
+		layout = new YAHOO.widget.Layout('doc3', {
+            height: Dom.getClientHeight(), //Height of the viewport
+            width: Dom.get('doc3').offsetWidth, //Width of the outer element
+            minHeight: 150, //So it doesn't get too small
+            minWidth:800,
+            units: [
+                { position: 'top', height: 85, body: 'hd' },
+                { position: 'left', width: 240, body: 'bd-lft', grids: true },
+                { position: 'bottom', height: 30, body: 'footerBar' },
+                { position: 'center', body: '', grids: true }
+            ]
+        });			
+
+		layout.on('render', function(){
+                            var navTabs = new YAHOO.widget.TabView();
+                            navTabs.addTab(new YAHOO.widget.Tab({
+                                active: true,
+                                label: "Orleans Parish",
+								id:"Orleans"
+                            }));
+                            navTabs.addTab(new YAHOO.widget.Tab({
+                                label: "Jefferson",
+								id:"Jefferson"
+                            }));
+                            navTabs.addTab(new YAHOO.widget.Tab({
+                                label: "Plaquemines",
+								id:"Plaquemines"
+                            }));
+							navTabs.addTab(new YAHOO.widget.Tab({
+                                label: "St. Bernard",
+								id:"St_Bernard"
+                            }));
+							navTabs.addTab(new YAHOO.widget.Tab({
+                                label: "St. Charles",
+								id:"St_Charles"
+                            }));
+                            navTabs.appendTo('tabs');
+							navTabs.on('activeTabChange',handleTabChange);
+							bodyLayout = new YAHOO.widget.Layout(layout.getUnitByPosition('center').body, {
+								parent:layout,
+								minWidth:635,
+								units: [{
+									position: 'top',
+									height: 18,
+									body: 'bd-hd',
+									grids: true
+								},
+								{position:'bottom',body:'bd-ftr',height:32,grids:true},
+								 {
+									position: 'center',
+									body: 'map'
+								}]
+							});
+							bodyLayout.render();
+                        });
+						
+		layout.on('beforeResize', function() {
+            Dom.setStyle('doc3', 'width',(Dom.getClientWidth() - 20) + 'px');
+			Dom.setStyle('doc3', 'height', Dom.getClientHeight() + 'px');
+			bodyLayout.render();
+        });
+		
+		layout.render();
+		Event.onAvailable('map',mapLoad);
+        
+		//Handle the resizing of the window
+        Event.on(window, 'resize', layout.resize, layout, true);
+		});
+		Event.on(Dom.getElementsBy(function(e){
+			return (e.name == 'chooser')
+		},'input'),'click',handleChooserChange);
+}
+function mapLoad(){
+	        //initialize the map
+        //create the map element & map as global objects
+        //_mapEl = new YAHOO.util.Element('map');
+        _map = new GMap2(document.getElementById('map'), {
+            mapTypes: [G_PHYSICAL_MAP, G_NORMAL_MAP, G_SATELLITE_MAP, G_HYBRID_MAP]
+        });
+		_map.setCenter(new GLatLng(defaultSettings.lat, defaultSettings.lon), defaultSettings.zoom, G_PHYSICAL_MAP);
+		addCommonControls(_map);
+		GMarkerHelper.attach(_map);
+		_map.addControl(new GHierarchicalMapTypeControl());
+		//listen for zoom events, when you get to a certain place map type will automatically change
+		//also test and restyle icons
+		GEvent.addListener(_map, 'zoomend', zoomLayerSwitch);
+		GEvent.addListener(_map, 'zoomend', handleZoomChange);
+        //listen for click events and dispay the Info Window if you click on a marker
+        GEvent.addListener(_map, 'click', function(over, latlng){
+            if (over != null && over instanceof GMarker) {
+                _map.openInfoWindowHtml(over.getLatLng(), createInfoHtml(over.attributes));
+            }
+        });
+        //listen for map to stop moving or zooming
+        //GEvent.bind(_markerMgmr, 'changed', _markerMover, _markerMover.explodeMarkers);
+		//set the map property of our styleManager
+		styleMgmr.setMap(_map);
+		//load markers
+		loadJsonMarkers('childcare-geo.js');
+}
+function handleTabChange(e){
+	var activeTab = e.newValue;
+	var tabId = activeTab.get('id');
+	var newView = parishCenters[tabId];
+	//change map view
+	_map.setCenter(new GLatLng(newView.lat,newView.lon),newView.zoom);
+	//change title
+	var dispName = activeTab.getAttributeConfig('label').value;
+	dispName = dispName.replace(' Parish','');
+	document.getElementById('parishTitle').innerHTML=dispName;
+}
+
+function handleChooserChange(e){
+	var elem = e.srcElement || e.target;
+	var styleId = elem.value;
+	changeMarkersByAttributes(styleId);
+	var radios = Dom.getElementsBy(function(el){return(el.name=='chooser')},'input');
+	for(var i=0;i<radios.length;i++){
+		if(radios[i].value == elem.value){
+			Dom.removeClass(radios[i].value,'hidden');
+		}
+		else{
+			Dom.addClass(radios[i].value,'hidden');
+		}
+	}
+}
+
+function handleZoomChange(oldLevel,newLevel){
+	var styleId = Dom.getElementsBy(function(elem){return(elem.name=='chooser' && elem.checked)},'input')[0].value;
+	changeMarkersByAttributes(styleId);	
+}
+
+function changeMarkersByAttributes(styleKey){
+    var mrkrs = _map.getMarkers();
+	var oldMrkrs = [];
+    for (var i = 0; i < mrkrs.length; i++) {
+        var newIcon = styleMgmr.styleMap[styleKey].getIconFromAttributes(mrkrs[i].attributes, attribKeys[styleKey]);
+        var curIcon = mrkrs[i].getIcon();
+        if (newIcon.image != curIcon.image) {
+            var m = mrkrs[i].createCopy(newIcon);
+			_map.addOverlay(m);
+			oldMrkrs.push(mrkrs[i]);
+        }
+    }
+	for(var i=0;i<oldMrkrs.length;i++){
+		_map.removeOverlay(oldMrkrs[i]);
+	}
+}
+
+function createInfoHtml(attrib){
+	var infoWin = Dom.get('infoWindowWrapper');
+	var infoWinHtml = YAHOO.lang.substitute(infoWin.innerHTML,attrib,function(k, v, m){
+		var newV=v;
+		if (v==1) {
+			newV = 'Yes'
+		}
+		else if (v==0) {
+			newV = 'No'
+		}
+		else if (typeof(v)=='undefined' || v == null){
+			newV=' '
+		}
+		return newV
+	})
+	return infoWinHtml;
+}
+
+function zoomLayerSwitch(old,cur)
+{	
+	//auto switch map type
+	if(cur>=15 && _map.getCurrentMapType()==G_PHYSICAL_MAP)
+	{
+		_map.setMapType(G_NORMAL_MAP);
+	}
+	else if (cur<15 && _map.getCurrentMapType()!=G_PHYSICAL_MAP)
+	{
+		_map.setMapType(G_PHYSICAL_MAP);
+	}
+}
+
+function addMarkers(json){
+    //remove the script tag
+    jsRequest.removeScriptTag();
+    //add an attributes property to GMarker
+    GMarker.prototype.attributes = {}
+    GMarker.prototype.markerClass = null;
+	GMarker.prototype.trueLocation={};
+	GMarker.prototype.isModified = false;
+	GMarker.prototype.map = _map;
+	var styleId = Dom.getElementsBy(function(elem){return(elem.name=='chooser' && elem.checked)},'input')[0].value;
+	var intialStyle = styleMgmr.styleMap[styleId];
+    //loop through GeoJSON object and create markers
+    for (var i in json.features) {
+        var coord = json.features[i].geometry.coordinates[0];
+        //test for reasonable coordinates
+		if(Math.abs(coord[0])>180 || Math.abs(coord[1])>90){
+			//just skip this one if the coordinates are out of line
+			continue;
+		}
+		var attrib = json.features[i].properties;     
+        var mtitle = attrib.FACILITY_N;
+		var m = new GMarker(new GLatLng(coord[1],coord[0]),
+								{title:mtitle,icon:intialStyle.getIcon()});
+        m.attributes = attrib;
+        m.markerClass = intialStyle.name;
+		m.trueLocation=new GLatLng(coord[1],coord[0]);
+		_map.addOverlay(m);
+		}
+	_markersComplete=true;
+}
+function destroyPage(){
+	styleMgmr=null;
+	layout = null;
+	YAHOO = null;
+	GUnload();
+	_map=null;
+}
+</script> 
+</head> 
+<body onunload="GUnload()"> 
+<div id="doc3" class="yui-t7">
+
+    <div id="hd" class="yui-t99">
+        <div id="titleBlock" class="yui-b">
+            <img id="gnocdcLogo" alt="GNOCDC Logo" src="../IMAGES/gnocdclogo.png" />
+        </div>
+        <div class="main">
+            <div class="yui-b" id="headingWrapper">
+                <h1 id="heading">
+                	<span id="parishTitle">Orleans</span> Parish Child Care Centers Environmental Scanner</h1>
+                <h2 id="subheading"></h2>
+            </div>
+        </div>
+    </div>
+    <div id="bd-hd" class="yui-t99">
+        <div class="main">
+            <div id="mapHeaderWrapper" class="yui-b">
+                <div id="tabs">
+                </div>
+            </div>
+        </div>
+    </div>
+
+                <div id="map"></div>
+<div id="bd-ftr" class="yui-t99">
+	            <div id="mapFooter">
+                <span id="footerLogo"><img src="" /></span><strong>Source:</strong>
+                THE SOURCE
+                &nbsp;&nbsp;&nbsp;
+                <strong>Next Update:</strong>
+                NEXT UPDATE DATE
+            </div>
+ </div>
+
+
+<div id="bd-lft" class="yui-t99">
+	            <div id="infoBar" class="yui-b">
+                <div id="introText">
+                    <p>
+                        <span>Welcome!</span>
+                        <br/>
+                        You can drag the map with your mouse, and double-click to zoom.
+                    </p>
+                </div>
+                <div id="dynamicContent">
+                    <div>
+                        <input type="radio" name="chooser" value="location" checked="checked" />Location Only
+                        <div id="location" class="legendDiv">
+                            <img src="../Markers/Black8x8.png" alt="black circle" />&nbsp Child Care Location
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="chooser" value="capacity" />Licensed Capacity
+                        <div id="capacity" class="hidden legendDiv">
+                            <img src="../Markers/Capacity/Large8x8.png" alt="maroon circle" />&nbsp Large Capacity Centers
+                            <br/>
+                            <img src="../Markers/Capacity/Medium8x8.png" alt="red circle" />&nbsp Medium Capacity Centers
+                            <br/>
+                            <img src="../Markers/Capacity/Small8x8.png" alt="pink circle" />&nbsp Small Capacity Centers
+                            <br/>
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="chooser" value="headstart" />Head Start
+                        <div id="headstart" class="hidden legendDiv">
+                            <img src="../Markers/HeadStart/HeadStart16x16.png" alt="blue circle with lowercase white h" />&nbsp Head Start Center
+                            <br/>
+                            <img src="../Markers/Black16x16.png" alt="black circle" />&nbsp Other Centers
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="chooser" value="infants" />Infants Served
+                        <div id="infants" class="hidden legendDiv">
+                            <img src="../Markers/Infants/Infants16x16.png" alt="blue circle with white baby" />&nbsp Centers Accepting Infants
+                            <br/>
+                            <img src="../Markers/Black16x16.png" alt="black circle" />&nbsp Other Centers
+                        </div>
+                    </div>
+                    <div>
+                        <input type="radio" name="chooser" value="evenings" />Evening Hours
+                        <div id="evenings" class="hidden legendDiv">
+                            <img src="../Markers/Evening/Evening16x16.png" alt="blue circle with lowercase white h" />&nbsp Centers With Evening Hours
+                            <br/>
+                            <img src="../Markers/Restrictions/5Homeless16x16.png" alt="brown circle" />&nbsp Other Centers
+                        </div>
+                    </div>
+                </div>
+                <div id="extraInfo">
+                    <p>
+                        Does location matter for child care centers? Learn more &raquo;
+                    </p>
+                    <p>
+                        Is it easier to open a child care center in parts of town with no centers?
+                        Learn more &raquo;
+                    </p>
+                    <p>
+                        Is it better to use a building that was previously a child care center? Learn more &raquo;
+                    </p>
+                </div>
+            </div>
+			</div>
+ 
+<div id="footerBar">
+<p class="copyright">
+	Copyright &copy; 2000-8 All rights reserved. 
+	<a href="javascript: MM_openBrWindow('TermsOfUse.html','','toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=550,height=450')">
+		Terms of Use</a>
+</p>
+</div>
+</div> 
+
+		<div id="infoWindowWrapper">
+		<div class="infoWindow">
+			<p>
+			<span class="infoTitle">{FACILITY_N}</span><br />
+			<span class="address">{ARC_Street}<br />{LCITY}&nbsp;{LSTATE},{ARC_Zone}</span><br />
+			<strong>Main Phone:&nbsp;</strong>{PHONE_NUM}<br />
+	
+			</p>
+			<p>
+				<strong>Capacity:&nbsp;</strong>{CAPACITY}<br />
+				<strong>Infants:&nbsp;</strong>{Infants}<br />
+				<strong>Evenings:&nbsp;</strong>{Evening}<br />								
+				<strong>Head Start:&nbsp;</strong>{HeadStart}
+			</p>
+		</div>
+		</div>
+ 
+<!--
+                    <div class="yui-u" id="mapActions">
+                        <ul>
+                            <li>
+                                <img src="../images/Print.png" alt="Print" id="imgPrint" /><a href="javascript:printMap();">Print Map</a>
+                            </li>
+                            <li>
+                                <img src="../images/Send.png" alt="Send" id="imgSend" /><a href="javascript:sendMapLink();">Send Map</a>
+                            </li>
+                            <li>
+                                <img src="../images/Link.png" alt="Link" id="imgLink" /><a href="javascript:createMapLink();">Link To The Map</a>
+                            </li>
+                        </ul>
+                    </div>
+--> 
+</body> 
+</html> 

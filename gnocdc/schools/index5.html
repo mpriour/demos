@@ -1,0 +1,378 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Public School Environmental Scanner</title>
+        <!-- Source File -->
+        <script type="text/javascript" src="../common/yui/yuiloader/yuiloader-min.js">
+        </script>
+        <!-- The Google Maps API. Need to put the correct key in for your site -->
+        <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAA5k2Twnw0jckKnqSAoOP-jBQdWHop_7tPrnsdQTU5ENblAN3tcRT9jpS8JrkWv6YooIscQdf0WGkWmw" type="text/javascript">
+        </script>
+        <link rel="stylesheet" href="../common/styles/commonV2.css" type="text/css" media="screen" charset="utf-8" />
+        <link rel="stylesheet" href="schools.css" type="text/css" />
+        <script type="text/javascript" src="../common/js/GnocdcLib/Gnocdc-all.js">
+        </script>
+        <script src="../common/js/commonV2.js" type="text/javascript">
+        </script>
+        <script src="../common/js/dynamicMarkerMaps.js" type="text/javascript">
+        </script>
+        <script src="schools.js" type="text/javascript">
+        </script>
+        <style type="text/css">
+            /* Specifically set the height of fixed height components
+             * Currently uses pixels but properly calculated em 's would also work.
+             */ #hd {
+                height: 65px;
+            } #ft {
+                height: 15px;
+            } #map-hdr {
+                height: 19px;
+            } #map-ftr {
+                height: 32px;
+            } #map {
+                background-color: #d2e8ec;
+            }
+        </style>
+        <script type="text/javascript">
+            /*REQUIRED - Controls where the map should intially be zoomed & centered to.
+             * type can either be a map type constant (ie G_PHYSICAL_MAP) or a
+             * string name associated with a default or custom map type
+             */
+            IntialMapView = {
+                lat: 29.996491,
+                lon: -90.024376,
+                type: G_PHYSICAL_MAP,
+                zoom: 11
+            };
+            /*This is for the hover feature - the markerlabelfield should be the column heading for the school name*/
+            /*Variables for dynamic marker applications*/
+            GeoJsonPath = "schools-geo20090611V3.js";
+            MarkerLabelField = 'School';
+            
+            YuiLoader.insert();
+            
+            /*REQUIRED - Controls what functions intialized the page and in what order
+             * This is ussually InitLayout with the optional css override path
+             * followed by any application specific startup functions
+             */
+            function PageLoad(){
+                InitLayout();
+                LoadMap(IntialMapView,{exploderOpts:ExploderOpts});
+                InitialStyleId = GetChooserStyleId();
+                LoadJsonMarkers(GeoJsonPath);
+            }
+        </script>
+    </head>
+    <body onunload="GUnload()">
+        <div id="doc3" class="yui-t2">
+            <div id="hd">
+                <a href="http://www.gnocdc.org"><img id="gnocdcLogo" alt="GNOCDC Logo" src="../IMAGES/gnocdclogo.png" /></a>
+                <div id="titleWrapper">
+                    <h1 class="heading">Public School Environmental Scanner</h1>
+                    <h2 class="subheading">Orleans Parish, February 2009</h2>
+                </div>
+            </div>
+            <div id="bd">
+                <div id="yui-main">
+                    <div class="yui-b">
+                        <div id="map-hdr">
+                        </div>
+                        <div id="map">
+                            Map is loading...
+                        </div>
+                        <div id="map-ftr">
+                            Source Citation: Compiled by GNO Community Data Center based on records from the Louisiana Department of Education and the Cowen Institute for Public Education Initiatives (charter authority). Available at www.gnocdc.org. 
+                        </div>
+                    </div>
+                </div>
+                <div id="sidebar" class="yui-b">
+                <div id="introText">
+                    <h3>How to use this map:</h3>
+                    <ul>
+                        <li>
+                            Drag the map with your mouse
+                        </li>
+                        <li>
+                            Double-click to zoom
+                        </li>
+                        <li>
+                            Click on a dot for more details
+                        </li>
+                    </ul>
+                 
+                </div>
+                    <div id="dynamicContent">
+                        <p>
+                            <strong class="blue">On the map: </strong>88 public schools in Orleans Parish as of February 2009. 
+                        </p>
+						 <p> 
+                         <strong class="blue">Note: </strong>Because many schools are city-wide access, you cannot assume that a school draws its students from the surrounding neighborhood.</p>
+                        <p>
+                            <strong class="blue">View by:</strong>
+                        </p>
+                
+                   
+                        <div id="legend">
+                            
+                            
+                            <div>
+                                <input type="radio" name="chooser" value="management" />District & Management Type
+                                <div id="management" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="Markers/Management/RSD16x16.png" alt="RSD schools, green dots" />RSD
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Management/RSDCharter16x16.png" alt="RSD charter schools, green dots" />RSD Charter
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Management/OPSB16x16.png" alt="OPSB schools, blue dots" />OPSB
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Management/OPSBCharter16x16.png" alt="OPSB charter schools, blue dots" />OPSB Charter
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Management/BESE16x16.png" alt="BESE schools, yellow dots" />BESE Charter
+                                        </li>
+                                    </ul>
+                                    <div id="districtInfo">
+                                        <h3>What is the difference between the 3 school districts?</h3>
+                                        <p>
+                                            RSD and OPSB* oversee the majority of schools, including charter-run schools which are managed independently. There are 2 BESE charter schools. </p>
+                                            <p>Some charter authorities manage multiple schools while others are single school charters. You can find out more about a school's charter authority by clicking on the dot.
+                                        </p>
+                                        <p>
+                                            A state appointed superintendent runs the RSD. The BESE oversees the RSD. A group of 7 elected officials manages the OPSB and its superintendent.
+                                        </p>
+                                        
+                                        
+                                        <p class="smallText">
+                                            *OPSB is also known as New Orleans Public Schools (NOPS).
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="chooser" value="enrollment" />Enrollment
+                                <div id="enrollment" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="Markers/Enrollment/1_16x16.png" alt="Less than 200 students, pink dots" />Less than 200
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Enrollment/2_16x16.png" alt="200-399 students, light red dots" />200-399
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Enrollment/3_16x16.png" alt="400-599 students, red dots" />400-599
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Enrollment/4_16x16.png" alt="More than 600 students, maroon dots" />More than 600
+                                        </li>
+                                    </ul>
+                                    <div id="enrollmentInfo">
+                                        <h3>What is the ideal enrollment size for a school?</h3>
+                                        <p>
+                                            No agreement exists at present. But a literature review suggests several factors impact the importance of enrollment:
+                                        </p>
+                                        <ul>
+                                            <li>
+                                                Economic efficiency (cost per student)
+                                            </li>
+                                            <li>
+                                                Curricular diversity (variety of classes)
+                                            </li>
+                                            <li>
+                                                Availability of "small learning communities" (this can make a big school feel smaller)
+                                            </li>
+                                            <li>
+                                                Student socioeconomic status (whether they are generally more affluent or more impoverished)
+                                            </li>
+                                            <li>
+                                                School location (urban or rural)
+                                            </li>
+                                            <li>
+                                                Grade levels (elementary, middle, high school, combination)
+                                            </li>
+                                            <li>
+                                                Quality of teachers and facilities
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="chooser" value="gradelevel" />Grade Level
+                                <div id="gradelevel" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="Markers/GradeLevel/1_16x16.png" alt="Elementary schools, red dots" />Elementary schools
+                                        </li>
+                                        <li>
+                                            <img src="Markers/GradeLevel/2_16x16.png" alt="Middle/Junior high schools, green diamonds" />Middle/Junior high hchools
+                                        </li>
+                                        <li>
+                                            <img src="Markers/GradeLevel/3_16x16.png" alt="High schools, blue hexagon" />Secondary (High) schools
+                                        </li>
+                                        <li>
+                                            <img src="Markers/GradeLevel/4_16x16.png" alt="Combination schools, maroon dots" />Combination schools
+                                        </li>
+                                    </ul>
+                                    <div id="gradelevelInfo">
+                                        <h3>Grade Level Definitions</h3>
+                                        <p>
+                                            <b>Elementary:</b>
+                                            any school within PK-8 range which does not fit the definition for Middle/Junior
+                                        </p>
+                                        <p>
+                                            <b>Middle/Junior:</b>
+                                            any school within 4-9 range that includes grades 7 or 8 and excludes grades PK-3 and 10-12
+                                        </p>
+                                        <p>
+                                            <b>Secondary (High):</b>
+                                            any school within 6-12 range that includes grades in the 10-12 range; or any school that contains only grade 9
+                                        </p>
+                                        <p>
+                                            <b>Combination:</b>
+                                            any school PK-12 range not described above
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="chooser" value="freereduced" />Free/Reduced Lunch
+                                <div id="freereduced" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="Markers/Lunch/1_16x16.png" alt="Less than 80% of students, Light orange dots" />Less than 80% of students
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Lunch/2_16x16.png" alt="80%-90% of students, Medium orange diamonds" />80%-90% of students
+                                        </li>
+                                        <li>
+                                            <img src="Markers/Lunch/3_16x16.png" alt="More than 90% of students, Dark orange hexagon" />More than 90% of students
+                                        </li>
+                                    </ul>
+                                    <div id="freereducedInfo">
+                                        <h3>What does data on free/reduced lunch tell you?</h3>
+                                        <p>
+                                            Since eligibility is based on the federal poverty guideline, this data identifies schools where there may be a high percent of students qualifying for certain programs. This allows organizations to focus their resources at those schools.
+                                        </p>
+                                        <p>
+                                            Free/reduced lunch is also often used as an indicator of poverty to track change over time and examine the differences between schools.
+                                        </p>
+                                        <p>
+                                            To qualify, a student's family income must be below 130% of the federal poverty guideline for free lunch and below 185% for reduced price lunch.
+                                        </p>
+                                        <p>
+                                            Note that because these guidelines allow for people making almost twice the poverty line, the data can mask concentrations of extreme poverty.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="radio" name="chooser" value="englishprof" />Limited English Proficiency
+                                <div id="englishprof" class="hidden legendDiv">
+                                    <ul>
+                                        <li>
+                                            <img src="Markers/EnglishProf/1_16x16.png" alt="Less than 10 students, Light purple dots" />Less than 10 students
+                                        </li>
+                                        <li>
+                                            <img src="Markers/EnglishProf/2_16x16.png" alt="10-50 students, Medium purple diamonds" />10-50 students
+                                        </li>
+                                        <li>
+                                            <img src="Markers/EnglishProf/3_16x16.png" alt="More than 50 students, Dark purple hexagon" />More than 50 students
+                                        </li>
+                                    </ul>
+                                    <div id="englishprofInfo">
+                                        <h3>Why would someone want data on limited English proficiency?</h3>
+                                        <p>
+                                            Students with limited English proficiency often face additional barriers to receiving a quality education in public schools. For this reason, some organizations target their programs to provide additional support for this population.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                           <div>
+                                <input type="radio" name="chooser" value="location" checked="checked" />Location Only
+                                <div id="location" class="legendDiv">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="credits"><br>Credits: Team Lead & Design: Joy Bonaguro; Content: Melissa Schigoda; Editor: Denice Ross; Programmer: Matt Priour; GIS Consultant: James Fee.</p>
+                </div>
+            </div>
+            <div id="ft">
+                <div class="copyright">
+                    Copyright &copy; 2000-9 All rights reserved. <a href="javascript: MM_openBrWindow('TermsOfUse.html','','toolbar=yes,menubar=yes,scrollbars=yes,resizable=yes,width=550,height=450')">Terms of Use</a>
+                </div>
+            </div>
+            <div id="mapActions">
+                <div class="bd hlist">
+                    <ul>
+                        <li>
+                            <img src="../maps/images/Send.png" alt="Send" id="imgSend" /><a href="javascript:SendMapLink(MyMap);">Send Map</a>
+                        </li>
+                        <li>
+                            <img src="../maps/images/Link.png" alt="Link" id="imgLink" /><a href="javascript:CreateMapLink(MyMap);">Link To The Map</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End of Doc3 --><!-- Popup Window Template -->
+        <div id="infoWindowWrapper" class="hidden">
+            <div class="infoWindow">
+                <p><br>
+                    <span class="infoTitle">{School}</span>
+                    <br/>
+                    <span class="address">{ADDR1}
+                        <br/>
+                        {CITY}&nbsp;{STATE},&nbsp;{Zip}
+                    </span>
+                    <br/>
+                    <strong>Main phone:&nbsp;</strong>{Phone}
+                    <br/>
+                </p>
+                <p>
+                    <strong>Principal:&nbsp;</strong>{PRINCIPAL}
+                    <br/>
+                    <strong>District & Management type:&nbsp;</strong>{MGMT}
+                    <br/>
+                    <strong>Charter authority:&nbsp;</strong>{CHARTER}
+                    <br/>
+                    <strong>Enrollment:&nbsp;</strong>{Enroll}
+                    <br/>
+                    <strong>Grade levels:&nbsp;</strong>{Grades}
+                    <br/>
+                    <strong>Free/reduced lunch:&nbsp;</strong>{Lunch}
+                    <br/>
+                    <strong>Limited English proficiency:&nbsp;</strong>{English}
+                    <br/>
+                    {nEnglish}
+                </p>
+            </div>
+        </div>
+        <!-- End of Popup Window Template -->
+        <!-- Link Overlay Window -->
+        <div id="linkWindow" class="hidden">
+        </div>
+        <div id="linkContent" class="hidden">
+            <img id="closer" alt="Close Window" src="../Maps/IMAGES/close.png" onclick="CloseWindow();"/>
+            <p class="linkText">
+                Copy the link from the text box below for your own use:
+                <br/>
+                <input type="text" id="tbPermalink" />
+            </p>
+        </div><!-- End link window -->
+        <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-6688206-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+    </body>
+</html>

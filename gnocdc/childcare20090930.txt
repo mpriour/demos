@@ -1,0 +1,156 @@
+license_no,facility,address,city,state,zip,phone,capacity,Size,Infants,HSLabel,NightCare,Class,HS,Longitude,Latitude
+8728,St. Philip's Episcopal Preschool,3643 Aurora Dr,New Orleans,LA,70131,504-392-2386,50,Medium,Yes,Class B,No,No,,-89.9879,29.926001
+14389,Blessings Childcare Center,2123 General Meyer Ave,New Orleans,LA,70114,504-256-1315,20,Small,Yes,Class A,No,No,,-90.035271,29.944765
+833,Gilda's Preschool Academy,7653 Lacombe St,New Orleans,LA,70127,504-242-2175,43,Medium,Yes,Class A,No,No,,-89.977798,30.047403
+13761,Jumpstart Child Development Center,7700 Lake Forest Blvd,New Orleans,LA,70126,504-240-2915,42,Medium,Yes,Class A,No,No,,-89.999947,30.023794
+13551,Love Me Tender Daycare Center,700 N Broad St,New Orleans,LA,70119,504-827-2522,54,Medium,No,Class A,No,Yes,,-90.083046,29.970299
+1856,Loyola University New Orleans / Whelan Children's Center,2020 Calhoun St,New Orleans,LA,70118,504-864-7273,63,Medium,Yes,Class A,No,No,,-90.118813,29.936653
+14470,Wilcox's Academy of Early Learning,1678 N Broad St,New Orleans,LA,70119,504-948-1827,84,Large,Yes,Class A,No,No,,-90.074051,29.980509
+10621,Children's College of Academics,4614 General Meyer Ave,New Orleans,LA,70131,504-324-3992,21,Small,Yes,Class A,No,Yes,,-90.006882,29.933666
+1063,Learn and Play Daycare,6234 Curran Blvd,New Orleans,LA,70126,504-246-1693,16,Small,Yes,Class A,No,No,,-90.021065,30.030931
+11510,"""Bright Minds"" Academy",6836 Bundy Rd,New Orleans,LA,70127,504-309-6056,63,Medium,No,Class A,No,No,,-89.984535,30.031784
+13625,"Booker Academy , Inc.",3311 Dryades St,New Orleans,LA,70115,504-899-5583,103,Extra large,Yes,Class A,No,No,,-90.091835,29.931454
+14246,Clear Head Learning Center #3,1937 Newton St,New Orleans,LA,70114,504-669-6847,55,Medium,Yes,Class A,No,No,,-90.037445,29.944918
+13659,"D.J.'s Learning Castle, LLC",3033 Paris Ave,New Orleans,LA,70119,504-309-1135,73,Large,No,Class A,No,No,,-90.072723,29.988411
+13870,Discovery Kids Preschool and Daycare Center #2,7979 Earhart Blvd,New Orleans,LA,70125,504-484-5082,64,Medium,Yes,Class A,No,No,,-90.11364,29.960463
+85,El Yo Yo Bilingual Head Start,735 General Pershing St,New Orleans,LA,70115,504-899-6165,121,Extra large,Yes,Class A,Combined,No,Combo,-90.099991,29.919249
+7638,Founders Head Start Center,4128 Franklin Ave,New Orleans,LA,70122,504-945-4128,68,Large,No,Class A,Head Start,No,HeadStart,-90.050278,30.001104
+13853,Jordan's Learning Academy,2240 A P Tureaud Ave,New Orleans,LA,70119,504-940-5648,20,Small,Yes,Class A,No,No,,-90.067398,29.979528
+14436,Kidz Courtyard,8400 Morrison Rd,New Orleans,LA,70127,504-241-0060,39,Medium,Yes,Class A,No,No,,-89.996407,30.035454
+14220,Kidz Zone Day Care Center,7016 Read Ln,New Orleans,LA,70127,504-245-4201,39,Medium,Yes,Class A,No,No,,-89.974686,30.0389
+1491,L and L Nursery and Learning Center Preschool,3973 Downman Rd,New Orleans,LA,70126,504-244-7233,73,Large,Yes,Class A,No,No,,-90.020935,30.011505
+4307,Leslie Early Head Start,2126 Constance St,New Orleans,LA,70130,504-522-2725,16,Small,Yes,Class A,Early Head Start,No,EHS,-90.075272,29.929241
+13854,Mid City Academy of Preschool Learning,2541 Banks St,New Orleans,LA,70119,504-309-6355,34,Small,No,Class A,No,No,,-90.087585,29.961597
+13705,Mt. Pilgrim B. C. Daycare,2717 Joliet St,New Orleans,LA,70118,504-866-5698,30,Small,Yes,Class A,No,No,,-90.121368,29.961044
+1190,Peace Head Start Center,2500 S Broad St,New Orleans,LA,70125,504-822-8418,28,Small,No,Class A,Head Start,No,HeadStart,-90.099159,29.951401
+7579,Sanders Smart Start,1917 Almonaster Ave,New Orleans,LA,70117,504-945-0886,100,Extra large,Yes,Class A,No,No,,-90.047493,29.977352
+9730,Shelia's Kiddie Cottage,4349 General Meyer Ave,New Orleans,LA,70131,504-393-1940,40,Medium,Yes,Class A,No,No,,-90.010391,29.935076
+14123,St. John Lutheran School,3937 Canal St,New Orleans,LA,70119,504-488-6641,100,Extra large,No,Class A,No,No,,-90.098808,29.973488
+115,St. John the Baptist Head Start,1920 Clio St,New Orleans,LA,70113,504-529-2557,46,Medium,No,Class A,Head Start,No,HeadStart,-90.077003,29.943035
+1020,St. Paul Lutheran School,2624 Burgundy St,New Orleans,LA,70117,504-947-1773,42,Medium,No,Class B,No,No,,-90.050552,29.966656
+13833,Thunder Mountain Child Development Center,8804 Birch St,New Orleans,LA,70118,504-866-4798,22,Small,Yes,Class A,No,No,,-90.132713,29.954931
+4971,Tommye's Tiny Tots,221 S Genois St,New Orleans,LA,70119,504-482-6355,49,Medium,Yes,Class A,No,Yes,,-90.097038,29.970263
+9412,University of New Orleans Children's Center,2000 Lakeshore Dr,New Orleans,LA,70122,504-280-3131,190,Extra large,No,Class A,No,No,,-90.069931,30.032413
+14442,Waldorf School of New Orleans,517 Soraparu St Apt 101,New Orleans,LA,70130,504-525-2420,15,Small,No,Class B,No,No,,-90.074516,29.923658
+14340,Carrollton-Dunbar Head Start Center,9301 Colapissa St,New Orleans,LA,70118,504-309-3503,123,Extra large,No,Class A,Head Start,No,HeadStart,-90.125023,29.969128
+9371,Clear Head Learning Center,1800 Oretha C Haley Blvd,New Orleans,LA,70113,504-581-9507,45,Medium,Yes,Class A,No,No,,-90.080681,29.938923
+13960,"Kiddie Kids Daycare & Preschool, LLC",6142 Saint Claude Ave,New Orleans,LA,70117,504-279-5900,41,Medium,Yes,Class A,No,No,,-90.010727,29.959648
+7873,"Kids World of New Orleans, Inc.",3901 Saint Claude Ave,New Orleans,LA,70117,504-944-9193,57,Medium,Yes,Class A,No,No,,-90.036232,29.966005
+13260,Louise S. McGehee School's Little Gate,1538 Philip St,New Orleans,LA,70130,504-523-9911,208,Extra large,Yes,Class B,No,No,,-90.081039,29.932682
+14122,"Toddler's University, Inc.",4121 Saint Claude Ave,New Orleans,LA,70117,504-415-4474,45,Medium,Yes,Class A,No,No,,-90.034142,29.965528
+806,Jewish Community Center,5342 Saint Charles Ave,New Orleans,LA,70115,504-897-0143,73,Large,Yes,Class A,No,No,,-90.112328,29.928097
+13197,Academy of Sacred Hearts: Little Hearts,4301 Saint Charles Ave,New Orleans,LA,70115,504-269-1230,80,Large,No,Class B,No,No,,-90.100891,29.926716
+10250,Rayne Early Childhood Program,3900 Saint Charles Ave,New Orleans,LA,70115,504-899-3595,141,Extra large,Yes,Class A,No,No,,-90.096481,29.926756
+14351,ABBA Academy & Preschool,7900 Earhart Blvd Ste 100,New Orleans,LA,70125,504-862-5566,41,Medium,Yes,Class A,No,No,,-90.113251,29.95993
+13076,Abeona House Child Discovery Center,8630 Oak St,New Orleans,LA,70118,504-866-6337,30,Small,Yes,Class B,No,No,,-90.134293,29.950895
+13489,Angel Care Learning Center,4223 Elysian Fields Ave,New Orleans,LA,70122,504-282-7137,45,Medium,Yes,Class A,No,No,,-90.059166,30.001226
+8699,"Angels' Haven Daycare and Preschool, Inc.",8819 S Claiborne Ave,New Orleans,LA,70118,504-861-1554,32,Small,Yes,Class A,No,No,,-90.12645,29.960958
+14124,Annette Head Start Center,1625 Annette St,New Orleans,LA,70116,504-942-5552,68,Large,No,Class A,Head Start,No,HeadStart,-90.063042,29.973547
+13328,Audubon Primary Academy,4600 Freret St,New Orleans,LA,70115,504-304-7335,156,Extra large,Yes,Class A,No,No,,-90.105408,29.93498
+6048,"Auntie ""B"" Pre-School and Day Care Center Inc.",8001 Lafourche St,New Orleans,LA,70127,504-242-9299,34,Small,Yes,Class A,No,No,,-89.978233,30.051222
+7261,Because Wee Care Learning Academy,3121 Louisiana Avenue Pkwy,New Orleans,LA,70125,504-218-5181,22,Small,Yes,Class A,No,No,,-90.097984,29.942343
+154,Berean Head Start Center,1629 Simon Bolivar Ave,New Orleans,LA,70113,504-524-1281,107,Extra large,No,Class A,Head Start,No,HeadStart,-90.082306,29.941549
+238,Boobie and Sprout Day Care Center,1240 Lauradale Dr,New Orleans,LA,70114,504-362-1059,45,Medium,Yes,Class A,No,No,,-90.032387,29.942118
+14469,C & M Foundation DBA Five Star Learning Academy,4441 Old Gentilly Rd,New Orleans,LA,70126,504-948-8988,103,Extra large,Yes,Class A,No,No,,-90.037636,30.003206
+1396,"Candy Cane Child Care Center, Inc.",3843 General Meyer Ave,New Orleans,LA,70114,504-366-7403,50,Medium,Yes,Class A,No,No,,-90.015617,29.937386
+4424,Carol's Pre School and Day Care,4751 Marque Dr,New Orleans,LA,70127,504-241-0049,34,Small,Yes,Class A,No,No,,-89.976913,30.021257
+264,Central City Economic Opportunity Corporation Head Start,2020 Jackson Ave,New Orleans,LA,70113,504-581-2136,82,Large,No,Class A,Head Start,No,HeadStart,-90.084389,29.938431
+14491,Changing Stages LLC,11120 Hayne Blvd,New Orleans,LA,70128,504-941-7205,37,Medium,Yes,Class A,No,No,,-89.976631,30.053076
+13718,Children's Cottage Pre-School and Nursery,4715 Dodt Ave,New Orleans,LA,70126,504-241-1126,21,Small,Yes,Class A,No,No,,-89.991501,30.019732
+14416,Children's Palace Learning Academy,5615 Read Blvd,New Orleans,LA,70127,504-245-2752,98,Large,Yes,Class A,No,Yes,,-89.971695,30.031305
+14540,Children's Place Learning Center,1741 N Broad St,New Orleans,LA,70119,504-945-4500,28,Small,Yes,Class A,No,Yes,,-90.073334,29.981716
+13811,"Children's World, LLC",8830 Lake Forest Blvd,New Orleans,LA,70127,504-243-6091,38,Medium,Yes,Class A,No,No,,-89.987015,30.028206
+14021,Cindy's Little Scholars,1504 N Broad St,New Orleans,LA,70119,504-948-1830,31,Small,Yes,Class A,No,No,,-90.076523,29.977734
+14313,Clara's Little Lamb #5,1904 CASA CALVO ST,New Orleans,LA,70114,504-362-7710,104,Extra large,Yes,Class A,No,No,,-90.035202,29.935328
+8583,"Clara's Little Lambs Preschool Academy, Inc #4",1871 Farragut St,New Orleans,LA,70114,504-362-7710,281,Extra large,Yes,Class A,No,No,,-90.034409,29.935444
+10426,Clear Head Learning Center No. 2,1820 Newton St,New Orleans,LA,70114,504-324-3301,100,Extra large,Yes,Class A,No,No,,-90.038559,29.945074
+1975,Covenant House Child Development Center/Urban League Head Start,611 N Rampart St,New Orleans,LA,70112,504-584-1135,62,Medium,Yes,Class A,Early Head Start,No,EHS,-90.069138,29.959852
+6551,Crescent Cradle at Cabrini High School,3408 Esplanade Ave,New Orleans,LA,70119,504-482-3670,38,Medium,Yes,Class B,No,No,,-90.087051,29.981993
+844,Cub Corner Preschool,420 Robert E Lee Blvd,New Orleans,LA,70124,504-283-9499,120,Extra large,Yes,Class B,No,No,,-90.110077,30.019735
+13734,Cuddly Bear Child Development Center,2101 General Meyer Ave,New Orleans,LA,70114,504-364-0423,42,Medium,Yes,Class A,No,No,,-90.035431,29.944775
+14262,D & M Center For Learning,4002 Franklin Ave,New Orleans,LA,70122,504-943-7792,37,Medium,Yes,Class A,No,No,,-90.05014,29.999365
+3836,Diana Head Start Center,2144 Pace Blvd,New Orleans,LA,70114,504-366-4626,73,Large,No,Class A,Head Start,No,HeadStart,-90.027489,29.930784
+13590,Discovery Kids Preschool and Daycare Center,128 S Jefferson Davis Pkwy,New Orleans,LA,70119,504-821-5083,29,Small,Yes,Class A,No,Yes,,-90.094086,29.969576
+12978,Dryades YMCA Day Care Center,1924 Philip St,New Orleans,LA,70113,504-561-0606,89,Large,Yes,Class A,No,Yes,,-90.084465,29.936195
+7193,Ecole Bilingue de la Nouvelle-Orleans,5818 Perrier St,New Orleans,LA,70115,504-899-9796,52,Medium,No,Class B,No,No,,-90.118156,29.925182
+13178,Fellows Children's Academy,1501 Opelousas Ave,New Orleans,LA,70114,504-376-8966,44,Medium,Yes,Class A,No,No,,-90.041847,29.948248
+13902,First Academy Early Learning Center,5290 Canal Blvd,New Orleans,LA,70124,504-482-5775,125,Extra large,Yes,Class B,No,No,,-90.110512,29.986076
+903,First Presbyterian Child Development Program,5401 S Claiborne Ave,New Orleans,LA,70125,504-861-4120,47,Medium,No,Class B,No,No,,-90.109581,29.941765
+13795,Grace Child Center,3700 Canal St,New Orleans,LA,70119,504-488-6849,82,Large,No,Class A,No,No,,-90.096954,29.971895
+10308,Grapauls's Care,1900 Bodenger Blvd,New Orleans,LA,70114,504-366-1255,24,Small,Yes,Class A,No,No,,-90.046303,29.937185
+781,Greenie House,1819 Dufossat St,New Orleans,LA,70115,504-896-6578,27,Small,Yes,Class A,No,No,,-90.110489,29.929575
+10170,Greenie House Annex,1836 Soniat St,New Orleans,LA,70115,504-896-6578,41,Medium,Yes,Class A,No,No,,-90.109604,29.930479
+11951,Gwen's Preschool Academy Incorporated,408 Diana St,New Orleans,LA,70114,504-392-8524,43,Medium,Yes,Class A,No,No,,-90.051964,29.944433
+10423,Happy Kids Preschool,4800 Downman Rd,New Orleans,LA,70126,504-241-6688,162,Extra large,Yes,Class A,No,No,,-90.021744,30.017593
+423,Happy Times Day Nursery,1602 S Carrollton Ave,New Orleans,LA,70118,504-866-5909,73,Large,No,Class A,No,No,,-90.126526,29.950535
+13609,Hope Early Head Start Center,4521 MARTIN LUTHER KING JR BLVD,New Orleans,LA,70125,504-265-0864,52,Medium,Yes,Class A,Early Head Start,No,EHS,-90.104538,29.955559
+100,"Hume Child Development Center, Inc.",319 N Tonti St,New Orleans,LA,70119,504-822-7883,76,Large,No,Class A,No,No,,-90.082314,29.965242
+14156,Incarnate Word Early and Pre School Head Start,8326 Apricot St,New Orleans,LA,70118,504-861-6366,96,Large,Yes,Class A,Combined,No,Combo,-90.119492,29.960478
+8021,James M. Singleton Head Start Center/Early Head Start,14441 Curran Rd,New Orleans,LA,70128,504-240-3300,100,Extra large,No,Class A,Combined,No,Combo,-89.946632,30.0686
+14545,Joseph's Children Center,1938 Dumaine St,New Orleans,LA,70116,504-822-8477,21,Small,Yes,Class A,No,Yes,,-90.074211,29.967003
+13789,Jump Start Day Care LLC,1628 Flanders St,New Orleans,LA,70114,504-361-5303,20,Small,Yes,Class A,No,No,,-90.020294,29.938017
+8984,"Kay's Day Care Center, Inc. dba Kay's Montessori School",2975 Behrman Hwy,New Orleans,LA,70114,504-362-2185,65,Large,No,Class A,No,No,,-90.029449,29.922651
+525,"Kiddee Korner, Inc.",4300 1/2 Saint Ann St,New Orleans,LA,70119,504-488-8687,35,Medium,Yes,Class A,No,No,,-90.098251,29.981939
+14133,"Kiddie University Learning Center, LLC",6900 Martin Dr,New Orleans,LA,70126,504-245-2330,50,Medium,Yes,Class A,No,No,,-90.011482,30.026781
+14241,Kids Kingdom Academy and Daycare LLC,2903 Tulane Ave,New Orleans,LA,70119,504-905-0060,36,Medium,Yes,Class A,No,No,,-90.09333,29.963121
+6185,Kids of Excellence,1415 Franklin Ave # 17,New Orleans,LA,70117,504-947-5437,50,Medium,Yes,Class A,No,No,,-90.049072,29.972231
+13806,Kiera's Learn-n-Play House,1122 TECHE ST,New Orleans,LA,70114,504-301-2816,36,Medium,Yes,Class A,No,No,,-90.05204,29.944101
+1025,Kingsley House Incorporated (Preschool and School Age Daycare),1600 Constance St,New Orleans,LA,70130,504-523-6221,642,Extra large,Yes,Class A,Combined,No,Combo,-90.071831,29.932102
+14610,Knowledge Garden Child Development Center,1700 Josephine St,New Orleans,LA,70113,504-529-1922,95,Large,Yes,Class A,No,No,,-90.080673,29.935802
+488,Lakeview Presbyterian Weekday School,5915 Louis Xiv St,New Orleans,LA,70124,504-488-2172,82,Large,No,Class B,No,No,,-90.110023,29.997837
+3,Layman's Pre-School Academy,1738 Allen St,New Orleans,LA,70116,504-947-1802,38,Medium,Yes,Class A,No,No,,-90.064461,29.974876
+4327,Little Explorer's Preschool-N-Developmental Center LLC,3759 Preston Pl,New Orleans,LA,70131,504-391-7425,28,Small,Yes,Class A,No,No,,-89.984238,29.915031
+14018,Little Ladies and Gentlemen Day Care,4211 S Claiborne Ave,New Orleans,LA,70125,504-309-2914,27,Small,Yes,Class A,No,Yes,,-90.10128,29.940609
+13313,Little Learner's Preschool & Daycare L.L.C.,3401 Canal St,New Orleans,LA,70119,504-482-6228,60,Medium,Yes,Class B,No,No,,-90.094231,29.970402
+14552,Little Professor Child Development Center,2424 Clara St,New Orleans,LA,70113,504-895-6500,35,Medium,Yes,Class A,No,No,,-90.090195,29.942415
+96,Louise Head Start,1205 Louisiana Ave,New Orleans,LA,70115,504-891-2871,85,Large,No,Class A,Head Start,No,HeadStart,-90.089226,29.924112
+304,Martin Luther King Head Start Center,1401 Simon Bolivar Ave,New Orleans,LA,70113,504-524-0391,77,Large,No,Class A,Head Start,No,HeadStart,-90.081108,29.943157
+12448,Mattie's Little Angels,4636 Magazine St,New Orleans,LA,70115,504-897-2855,91,Large,Yes,Class A,No,Yes,,-90.104263,29.92054
+13986,Mattie's Little Angels Day Care II,4432 Magazine St,New Orleans,LA,70115,504-897-5008,65,Large,Yes,Class A,No,No,,-90.101906,29.920717
+7249,"McMillian's First Steps Child Care Development Center, Inc.",2601 S Claiborne Ave,New Orleans,LA,70125,504-822-1266,277,Extra large,Yes,Class A,No,No,,-90.093132,29.943562
+9086,Miss Dee's Child Care/Learning Center,1539 Bartholomew St,New Orleans,LA,70117,504-324-8670,34,Small,No,Class A,No,No,,-90.033981,29.970058
+10188,Mrs. J's Little Angels,2418 Music St,New Orleans,LA,70117,504-947-8643,12,Small,Yes,Class A,No,No,,-90.052132,29.982277
+11366,Mrs. J's Little Angels II,2422 Music St # 24,New Orleans,LA,70117,504-947-8643,28,Small,Yes,Class A,No,No,,-90.052132,29.982311
+6429,National Council of Negro Women of ENO Inc. dba Emma B. Bromon Liberty House DC,2020 S Liberty St,New Orleans,LA,70113,504-412-3914,30,Small,Yes,Class A,No,No,,-90.084038,29.940868
+10895,New Hope Learning Center II,1507 Louisa St,New Orleans,LA,70117,504-324-8997,24,Small,Yes,Class A,No,No,,-90.041122,29.971371
+452,New Orleans Baptist Theological Seminary Preschool Education Center,4148 Providence Pl,New Orleans,LA,70126,504-816-8585,150,Extra large,Yes,Class A,No,No,,-90.044899,30.004099
+936,Newcomb Children's Center of Tulane University,1305 Broadway St,New Orleans,LA,70118,504-865-5326,138,Extra large,No,Class A,No,No,,-90.122177,29.942999
+343,Niki and Adams Kiddie Academy,2560 Jasmine St,New Orleans,LA,70122,504-941-6400,23,Small,Yes,Class A,No,No,,-90.051094,30.000738
+339,Oak Park Baptist Preschool Center,1110 Kabel Dr,New Orleans,LA,70131,504-392-1997,129,Extra large,Yes,Class B,No,No,,-90.007133,29.93351
+14051,Open Minds Open Hearts Daycare,2001 Frenchmen St,New Orleans,LA,70116,504-945-1806,35,Medium,Yes,Class A,No,No,,-90.058807,29.977661
+13318,Our Future Kids Day Care,2018 Law St,New Orleans,LA,70119,504-309-8814,28,Small,No,Class A,No,Yes,,-90.064407,29.983273
+454,Perrault Kiddy Kollege #1,3138 Annette St,New Orleans,LA,70122,504-945-4581,50,Medium,Yes,Class A,No,No,,-90.064484,29.98987
+14307,Perrault Kiddy Kollege #2,3520 Frenchmen St,New Orleans,LA,70122,504-944-1429,50,Medium,Yes,Class A,No,No,,-90.060234,29.994038
+13628,Pilgrim Pal's Nursery and Learning Center,2517 Marais St,New Orleans,LA,70117,504-940-1992,110,Extra large,Yes,Class A,No,No,,-90.05085,29.96995
+7554,Positive Beginnings/Child Development Center,1130 Lizardi St,New Orleans,LA,70117,504-948-0882,18,Small,Yes,Class A,No,No,,-90.020424,29.96266
+14042,Positive Start Child Care Development Center,2327 Robert E Lee Blvd,New Orleans,LA,70122,504-284-7747,20,Small,Yes,Class A,No,No,,-90.057449,30.022371
+6611,"Precious Angels Daycare Center, Inc.",3050 General Collins Ave,New Orleans,LA,70114,504-227-2568,40,Medium,Yes,Class A,No,No,,-90.015259,29.923685
+13007,Precious Little People Preschool and Daycare,5427 Crowder Blvd,New Orleans,LA,70127,504-240-9003,51,Medium,Yes,Class A,No,No,,-89.989655,30.025963
+13568,Rainbow Academy and Preschool,2224 Laharpe St,New Orleans,LA,70119,504-943-3405,70,Large,Yes,Class A,No,No,,-90.071983,29.975622
+11277,Rosary Child Development Center,5100 Willowbrook Dr,New Orleans,LA,70129,504-254-1528,156,Extra large,No,Class A,No,No,,-89.920074,30.041733
+4004,Royal Castle Child Development Center,3800 Eagle St,New Orleans,LA,70118,504-488-1045,100,Extra large,Yes,Class A,No,No,,-90.11483,29.971537
+13616,Sentino Early Childhood Academy,7361 Read Blvd,New Orleans,LA,70127,504-245-7500,100,Extra large,Yes,Class A,No,No,,-89.979652,30.042645
+14373,Sentino Early Childhood Academy II,10080 Morrison Rd,New Orleans,LA,70127,504-241-3909,96,Large,Yes,Class A,No,No,,-89.978813,30.043486
+13200,Small World Academy Ltd.,3303 N Claiborne Ave,New Orleans,LA,70117,504-945-4110,82,Large,Yes,Class A,No,No,,-90.039925,29.972134
+14312,Smart Start Academy,3038 Broadway St,New Orleans,LA,70125,504-861-0834,26,Small,Yes,Class A,No,Yes,,-90.111382,29.957188
+9361,"Solomon's Daycare Academy, Inc.",1212 Elizardi Blvd,New Orleans,LA,70114,504-365-7032,36,Medium,Yes,Class A,No,No,,-90.02626,29.941898
+13162,St. Andrew's Episcopal Early Learning Center,8012 Oak St,New Orleans,LA,70118,504-865-1347,30,Small,No,Class A,No,No,,-90.128998,29.946613
+9393,St. Anthony of Padua Catholic School,4601 Cleveland Ave,New Orleans,LA,70119,504-488-4426,17,Small,No,Class B,No,No,,-90.106834,29.977303
+3823,St. Charles Avenue Presbyterian Nursery School,1545 State St,New Orleans,LA,70118,504-891-5101,115,Extra large,No,Class B,No,No,,-90.118317,29.930286
+13248,St. George's Episcopal School Preschool Program,923 Napoleon Ave,New Orleans,LA,70115,504-891-5509,50,Medium,No,Class B,No,No,,-90.101318,29.921085
+13947,St. Paul's Episcopal School Little Saints,6249 Canal Blvd,New Orleans,LA,70124,504-488-4458,42,Medium,No,Class B,No,No,,-90.107864,30.00367
+9993,St. Pius X School,6600 Spanish Fort Blvd,New Orleans,LA,70124,504-282-2811,27,Small,No,Class B,No,No,,-90.092125,30.023342
+4803,St. Stephen Catholic School,1027 Napoleon Ave,New Orleans,LA,70115,504-891-1927,18,Small,No,Class B,No,No,,-90.101433,29.922113
+1553,Stuart Hall School for Boys,2032 S Carrollton Ave,New Orleans,LA,70118,504-861-1954,36,Medium,No,Class B,No,No,,-90.123543,29.9533
+14614,"Tadpole Academy LLC, DBA Brilliance Preschool and Academy",7034 Read Ln,New Orleans,LA,70127,504-319-4055,85,Large,No,Class A,No,No,,-89.974884,30.039227
+12354,Temple's Preschool,4200 Marigny St,New Orleans,LA,70122,504-288-3600,46,Medium,No,Class A,No,No,,-90.058159,30.001085
+13966,That Amazing Place Daycare II,2519 Bayou Rd,New Orleans,LA,70119,504-920-2980,47,Medium,Yes,Class A,No,No,,-90.076256,29.976208
+13546,The Akhigbe's Child Care Center L.L.C.,1042 Farragut St,New Orleans,LA,70114,504-367-9441,26,Small,Yes,Class A,No,No,,-90.033684,29.944221
+5293,The Children's Preschool,3915 Perrier St,New Orleans,LA,70115,504-899-6100,50,Medium,No,Class B,No,No,,-90.096306,29.924801
+13984,The Love Center Daycare & Preschool. LLC,1400 Frenchmen St,New Orleans,LA,70116,504-943-1272,36,Medium,Yes,Class A,No,Yes,,-90.058449,29.971565
+6132,The Upperroom Bible Church Preschool,8600 Lake Forest Blvd,New Orleans,LA,70127,504-245-9060,83,Large,No,Class A,No,No,,-89.989418,30.027802
+1056,The Uptown Learning Center,1771 Nashville Ave,New Orleans,LA,70115,504-861-8727,98,Large,Yes,Class A,No,No,,-90.115929,29.931864
+14433,Tot's Nursery,2818 General Ogden St,New Orleans,LA,70118,504-866-6875,49,Medium,Yes,Class A,No,No,,-90.12394,29.964462
+5647,Tulane University-Kidopolis Child Development Center,127 Elk Pl,New Orleans,LA,70112,504-988-7479,230,Extra large,Yes,Class A,No,No,,-90.074165,29.955606
+6061,Ursuline Academy,2635 State St,New Orleans,LA,70118,504-866-5260,65,Large,Yes,Class B,No,No,,-90.114059,29.941254
+6189,YMCA Castle Kids,7400 Leake Ave,New Orleans,LA,70118,504-862-2103,137,Extra large,Yes,Class A,No,No,,-90.13369,29.931721
