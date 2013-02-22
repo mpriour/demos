@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+ 
+<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+<!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
+<script type="text/javascript" src="../d3.v3.min.js"></script>
+<<script type="text/javascript" src="../queue.v1.min.js"></script>
+<style type="text/css">
+ 
+body{
+  background:white;
+}
+svg {
+  width: 960px;
+  height: 600px;
+  background: #DDD;
+}
+.river {
+  fill: none;
+  stroke-width: 1px;
+  stroke: blue;
+}
+.flow_q0{
+  stroke:url(#flowQ1);
+}
+.flow_q1{
+  stroke:url(#flowQ1);
+  stroke-width: 2px;
+}
+.flow_q2{
+  stroke:url(#flowQ2);
+  stroke-width: 3.25px;
+}
+.flow_q3{
+  stroke:url(#flowQ3);
+  stroke-width: 4.5px;
+}
+.flow_q4{
+  stroke:url(#flowQ4);
+  stroke-width: 5.5px;
+}
+ 
+</style>
+  </head>
+  <body>
+  <script type="text/javascript">
+ 
+  var svg = d3.select("body")
+    .append("svg")
+    .call(d3.behavior.zoom()
+    .on("zoom", redraw));
+  svg.append("defs");
+  svg = svg.append("g");
+  
+  // graphics layers
+  var states = svg.append("g").attr("id", "states");
+  var rivers = svg.append("g").attr("id", "rivers");
+ 
+  // gradient definitions
+  d3.range(1,5).forEach(function(i){
+    var grad = d3.select('defs')
+      .append("radialGradient").attr("id","flowQ"+i).attr("spreadMethod","reflect").attr("r","33%")
+        .attr('cx',0).attr('cy',0);
+    grad.append('stop').attr('offset','0%').attr('stop-color','#262040'),
+    grad.append('stop').attr('offset','50%').attr('stop-color','#5A7BC3'),
+    grad.append('stop').attr('offset','1000%').attr('stop-color','#FDFDFD'),
+    grad.append('animate').attr('attributeName','r').attr('values','33%;83%')
+      .attr('repeatCount','indefinite').attr('dur',(5-i)+'s');
+  });
+
+
+  // our renderer  
+  var path = d3.geo.path();
+  
+  // our projection
+  var projection = d3.geo.albers()
+
+  queue()
+    .defer(d3.json,'data/us-states.json')
+    .defer(d3.json,'data/rivers.json')
+    .defer(d3.tsv,'data/streamflow.tsv')
+    .defer(d3.json,'data/gauge_sites.json')
+    .await(dataReady);
+
+  function dataReady(error,us,streams,flow,sites){
+    //add states to map
+    states.selectAll("path")
+      .data(us.features)
+      .enter().append("path")
+        .style('fill', '#1E6124')
+        .style('stroke', '#000')
+        .style('stroke-width', '1.5px')
+        .attr('class', 'state')
+        .attr("d", path.projection( projection ))
+    
+    var sitesById = d3.nest()
+      .key(function(d){return d.properties.site_no})
+      .sortKeys(d3.descending)
+      .map(sites.features);
+
+    var riversByReach = d3.nest()
+      .key(function(d){
+        return ''+d.properties.rivernum+d.properties.uident+d.properties['name']
+      })
+      .map(streams.features);
+    var flows = [];
+    flow.forEach(function(d){
+      var k = +d.site_no;
+      var val = d.result_va;
+      if(k in sitesById && val!=='' && !isNaN(val)){
+        var props = sitesById[k][0].properties;
+        var rkey = ''+props.rivernum+props.uident+props['name'];
+        props.flow=d.result_va;
+        if(rkey in riversByReach){
+          flows.push(+d.result_va);
+          if(!riversByReach[rkey][0].properties.flow){
+            riversByReach[rkey][0].properties.flow = [d.result_va];
+          } else {
+            riversByReach[rkey][0].properties.flow.push(d.result_va);
+          }
+        }
+      }
+    });
+
+    flows.sort(d3.ascending);
+    var fquant = [d3.quantile(flows,0.25),
+    d3.quantile(flows,0.5),
+    d3.quantile(flows,0.75),
+    d3.quantile(flows,1.0)];
+
+
+    //add streams to map
+    rivers.selectAll("path")
+      .data(streams.features)
+      .enter().append("path")
+        .attr('class', function(d){
+          var cls='river flow_q';
+          var val = d.properties.flow && d3.mean(d.properties.flow);
+          if(!val){
+            cls+=0;
+          } else if(val<=fquant[0]){
+            cls+=1;
+          } else if(val<=fquant[1]){
+            cls+=2;
+          } else if(val<=fquant[2]){
+            cls+=3;
+          } else {
+            cls+=4;
+          } 
+          return cls;
+        })
+        .attr("d", path.projection( projection ))
+  }
+ 
+  function redraw() {
+    svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale*0.85 + ")");
+  }
+
+  function reproject( proj ){
+    // the new projection 
+    var p = d3.geo[ proj ];
+
+    // update all paths 
+    countries.selectAll("path").transition().duration(1000).attr("d", d3.geo.path().projection( p() ));
+    states.selectAll("path").transition().duration(1000).attr("d", d3.geo.path().projection( p() ));
+
+  }
+ 
+  </script>
+  </body>
+</html>
