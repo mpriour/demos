@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html xlmns:xlink="http://www.w3.org/1999/xlink">
+<head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
  
-<!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
-<!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
-<script type="text/javascript" src="../d3.v3.min.js"></script>
-<<script type="text/javascript" src="../queue.v1.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<!-- <script type="text/javascript" src="../d3.v3.min.js"></script>
+<script type="text/javascript" src="../queue.v1.min.js"></script> -->
 <style type="text/css">
  
 body{
@@ -20,26 +20,36 @@ svg {
 .river {
   fill: none;
   stroke-width: 1px;
-  stroke: blue;
+  stroke: #5A7BC3;
 }
 .flow_q0{
-  stroke:url(#flowQ1);
+  /*stroke:url(#flowQ1);*/
+  stroke:url(#flowGrad);
 }
 .flow_q1{
-  stroke:url(#flowQ1);
+  /*stroke:url(#flowQ1);*/
+  stroke:url(#flowGrad);
   stroke-width: 2px;
 }
 .flow_q2{
-  stroke:url(#flowQ2);
+  /*stroke:url(#flowQ2);*/
+  stroke:url(#flowGrad);
   stroke-width: 3.25px;
 }
 .flow_q3{
-  stroke:url(#flowQ3);
+  /*stroke:url(#flowQ3);*/
+  stroke:url(#flowGrad);
   stroke-width: 4.5px;
 }
 .flow_q4{
-  stroke:url(#flowQ4);
+  /*stroke:url(#flowQ4);*/
+  stroke:url(#flowGrad);
   stroke-width: 5.5px;
+}
+.flowmarker{
+  stroke:black;
+  stroke-width:1;
+  fill:url(#flowGrad);
 }
  
 </style>
@@ -50,26 +60,24 @@ svg {
   var svg = d3.select("body")
     .append("svg")
     .call(d3.behavior.zoom()
-    .on("zoom", redraw));
-  svg.append("defs");
-  svg = svg.append("g");
+    .on("zoom", redraw))
+    .append("g");
   
   // graphics layers
   var states = svg.append("g").attr("id", "states");
   var rivers = svg.append("g").attr("id", "rivers");
  
   // gradient definitions
-  d3.range(1,5).forEach(function(i){
-    var grad = d3.select('defs')
-      .append("radialGradient").attr("id","flowQ"+i).attr("spreadMethod","reflect").attr("r","33%")
+  /*d3.range(1,5).forEach(function(i){*/
+    var grad = svg
+      .append("radialGradient").attr("id","flowGrad").attr("spreadMethod","reflect").attr("r","60%")
         .attr('cx',0).attr('cy',0);
     grad.append('stop').attr('offset','0%').attr('stop-color','#262040'),
     grad.append('stop').attr('offset','50%').attr('stop-color','#5A7BC3'),
-    grad.append('stop').attr('offset','1000%').attr('stop-color','#FDFDFD'),
-    grad.append('animate').attr('attributeName','r').attr('values','33%;83%')
-      .attr('repeatCount','indefinite').attr('dur',(5-i)+'s');
-  });
-
+    grad.append('stop').attr('offset','100%').attr('stop-color','#FDFDFD');
+    //grad.append('animate').attr('attributeName','r').attr('values','33%;83%')
+    //  .attr('repeatCount','indefinite').attr('dur',(5-i)+'s');
+  /*});*/
 
   // our renderer  
   var path = d3.geo.path();
@@ -102,7 +110,10 @@ svg {
 
     var riversByReach = d3.nest()
       .key(function(d){
-        return ''+d.properties.rivernum+d.properties.uident+d.properties['name']
+        var rkey = ''+d.properties.rivernum+d.properties.uident+d.properties['name'];
+        rkey = rkey.replace(/\s/g,'_');
+        d.properties.rkey = rkey;
+        return rkey;
       })
       .map(streams.features);
     var flows = [];
@@ -130,6 +141,15 @@ svg {
     d3.quantile(flows,0.75),
     d3.quantile(flows,1.0)];
 
+    //add flow maker def
+    /*rivers//.append('svg:defs')
+    .append("marker").attr("id", "rflow").attr('viewBox','0 0 10 10')
+    .attr('refX','0').attr('refY','5').attr('markerUnits','strokeWidth')
+    .attr('markerWidth', '3').attr('markerHeight', '10').attr('orient','auto')
+    .append('path').attr('class','flowmarker').attr('stroke','white').attr('stroke-width','2')
+    .attr('fill','yellow').attr('d','M0,0L10,5L0,10');*/
+    
+    //var stream100s = streams.features.filter(function(d,i,a){return i%100===0});
 
     //add streams to map
     rivers.selectAll("path")
@@ -140,34 +160,49 @@ svg {
           var val = d.properties.flow && d3.mean(d.properties.flow);
           if(!val){
             cls+=0;
-          } else if(val<=fquant[0]){
-            cls+=1;
-          } else if(val<=fquant[1]){
-            cls+=2;
-          } else if(val<=fquant[2]){
-            cls+=3;
           } else {
-            cls+=4;
-          } 
+            cls+=d3.bisectLeft(fquant,d.properties.flow)+1
+          }
           return cls;
         })
+        .attr('id',function(d){return d.properties.rkey})
         .attr("d", path.projection( projection ))
+        
+    streams.features.forEach(function(d){
+      //rivers.append('use').attr('xlink:href','#rflow')
+      var id = d.properties.rkey,
+      q = d3.bisectLeft(fquant,d.properties.flow),
+      dur = 4-q;
+      if(d.properties.flow){
+        rivers.append('circle').attr("r",2+q*0.5).attr("class","flowmarker").attr('id','f1'+id)
+        .append('animateMotion').attr('dur',dur+'s')
+        .attr('repeatCount','indefinite').attr('rotate','auto-reverse')
+        .append('mpath').attr('xlink:href','#'+id);
+      }
+      if(q>0){
+        rivers.append('circle').attr("r",2+q*0.5).attr("class","flowmarker").attr('id','f2'+id)
+        .append('animateMotion').attr('dur',dur+'s')
+        .attr('repeatCount','indefinite').attr('rotate','auto-reverse').attr('begin',dur/2 + 's;f1'+id+'.begin')
+        .append('mpath').attr('xlink:href','#'+id);
+        /*rivers.append('circle').attr("r",2+q).attr("fill","red").attr('id','f3'+id)
+        .append('animateMotion').attr('dur',dur+'s')
+        .attr('repeatCount','indefinite').attr('rotate','auto-reverse').attr('begin',2*dur/3 + 's;f1'+id+'.begin')
+        .append('mpath').attr('xlink:href','#'+id);*/
+      }
+    });
+
+      /*setTimeout(moveUse,1);
+      
+      function moveUse(){
+        Array.prototype.slice.call(document.getElementsByTagName('use'))
+        .forEach(function(el){document.getElementById('rivers').appendChild(el)});
+      }*/
   }
  
   function redraw() {
-    svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale*0.85 + ")");
+    svg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
   }
 
-  function reproject( proj ){
-    // the new projection 
-    var p = d3.geo[ proj ];
-
-    // update all paths 
-    countries.selectAll("path").transition().duration(1000).attr("d", d3.geo.path().projection( p() ));
-    states.selectAll("path").transition().duration(1000).attr("d", d3.geo.path().projection( p() ));
-
-  }
- 
   </script>
   </body>
 </html>
