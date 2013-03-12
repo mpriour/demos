@@ -7,15 +7,24 @@
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <!-- <script type="text/javascript" src="../d3.v3.min.js"></script>
 <script type="text/javascript" src="../queue.v1.min.js"></script> -->
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <style type="text/css">
  
 body{
-  background:white;
+  background:#4A4A4A;
+  width: 99%
 }
+#info{
+  padding-left: 2em;
+  color: #cfcfcf;
+}
+a, a:hover, a:visited {
+  color:#fff;
+}
+
 svg {
-  width: 960px;
+  /*width: 80%;*/
   height: 600px;
-  background: #DDD;
 }
 .river {
   fill: none;
@@ -23,26 +32,21 @@ svg {
   stroke: #5A7BC3;
 }
 .flow_q0{
-  /*stroke:url(#flowQ1);*/
   stroke:url(#flowGrad);
 }
 .flow_q1{
-  /*stroke:url(#flowQ1);*/
   stroke:url(#flowGrad);
   stroke-width: 2px;
 }
 .flow_q2{
-  /*stroke:url(#flowQ2);*/
   stroke:url(#flowGrad);
   stroke-width: 3.25px;
 }
 .flow_q3{
-  /*stroke:url(#flowQ3);*/
   stroke:url(#flowGrad);
   stroke-width: 4.5px;
 }
 .flow_q4{
-  /*stroke:url(#flowQ4);*/
   stroke:url(#flowGrad);
   stroke-width: 5.5px;
 }
@@ -52,12 +56,31 @@ svg {
   fill:url(#flowGrad);
 }
  
+
 </style>
   </head>
   <body>
+  <div class="row-fluid">
+    <div class="span8" id="map"></div>
+    <div class="span4" id="info">
+      <div class="about">
+        <h3>Real Time Streamflow</h3>
+        <p>Real time streamflow estimates for the continental United States. Based on rivers / streams from the <a href="http://www.naturalearthdata.com/downloads/10m-physical-vectors/">Natural Earth</a> dataset and Streamflow monitoring gauge data from the <a href="http://waterdata.usgs.gov/nwis/current">USGS</a></p>
+        <p>Data is updated every 2 minutes</p>
+      </div>
+      <div class="updates">
+        <h3>Last Update<br><span id="update_time">
+          Fetching Streamflow Data
+        </span></h3>
+      </div>
+      <div class="data">
+      </div>
+    </div>
+  </div>
+  </body>
   <script type="text/javascript">
  
-  var svg = d3.select("body")
+  var svg = d3.select("#map")
     .append("svg")
     .call(d3.behavior.zoom()
     .on("zoom", redraw))
@@ -68,16 +91,12 @@ svg {
   var rivers = svg.append("g").attr("id", "rivers");
  
   // gradient definitions
-  /*d3.range(1,5).forEach(function(i){*/
     var grad = svg
       .append("radialGradient").attr("id","flowGrad").attr("spreadMethod","reflect").attr("r","60%")
         .attr('cx',0).attr('cy',0);
     grad.append('stop').attr('offset','0%').attr('stop-color','#262040'),
     grad.append('stop').attr('offset','50%').attr('stop-color','#5A7BC3'),
     grad.append('stop').attr('offset','100%').attr('stop-color','#FDFDFD');
-    //grad.append('animate').attr('attributeName','r').attr('values','33%;83%')
-    //  .attr('repeatCount','indefinite').attr('dur',(5-i)+'s');
-  /*});*/
 
   // our renderer  
   var path = d3.geo.path();
@@ -88,11 +107,24 @@ svg {
   queue()
     .defer(d3.json,'data/us-states.json')
     .defer(d3.json,'data/rivers.json')
-    .defer(d3.tsv,'data/streamflow.tsv')
     .defer(d3.json,'data/gauge_sites.json')
     .await(dataReady);
 
-  function dataReady(error,us,streams,flow,sites){
+  function cleanTsv (url, callback) {
+    return d3.xhr(url,callback).response(function(resp) {
+      return resp.responseText
+      .replace(/\r?\n/g, '___')
+      .replace(/#.*___agen/, "agen$'")
+      .replace(/___/g, '\n')
+    })
+  }
+
+  function dataReady(error,us,streams,sites){  
+    //get flow data
+    cleanTsv(
+      '/remotes/nwi/current?agency_cd=USGS&site_tp_cd=ST&index_pmcode_DATETIME=1&index_pmcode_00060=2&sort_key=site_no&format=rdb',
+      processFlowUpdate
+    );
     //add states to map
     states.selectAll("path")
       .data(us.features)
@@ -111,92 +143,130 @@ svg {
     var riversByReach = d3.nest()
       .key(function(d){
         var rkey = ''+d.properties.rivernum+d.properties.uident+d.properties['name'];
-        rkey = rkey.replace(/\s/g,'_');
+        rkey = rkey.replace(/\s/g,'_').replace(/\./g,'');
         d.properties.rkey = rkey;
         return rkey;
       })
       .map(streams.features);
-    var flows = [];
-    flow.forEach(function(d){
-      var k = +d.site_no;
-      var val = d.result_va;
-      if(k in sitesById && val!=='' && !isNaN(val)){
-        var props = sitesById[k][0].properties;
-        var rkey = ''+props.rivernum+props.uident+props['name'];
-        props.flow=d.result_va;
-        if(rkey in riversByReach){
-          flows.push(+d.result_va);
-          if(!riversByReach[rkey][0].properties.flow){
-            riversByReach[rkey][0].properties.flow = [d.result_va];
-          } else {
-            riversByReach[rkey][0].properties.flow.push(d.result_va);
-          }
-        }
-      }
-    });
 
-    flows.sort(d3.ascending);
-    var fquant = [d3.quantile(flows,0.25),
-    d3.quantile(flows,0.5),
-    d3.quantile(flows,0.75),
-    d3.quantile(flows,1.0)];
-
-    //add flow maker def
-    /*rivers//.append('svg:defs')
-    .append("marker").attr("id", "rflow").attr('viewBox','0 0 10 10')
-    .attr('refX','0').attr('refY','5').attr('markerUnits','strokeWidth')
-    .attr('markerWidth', '3').attr('markerHeight', '10').attr('orient','auto')
-    .append('path').attr('class','flowmarker').attr('stroke','white').attr('stroke-width','2')
-    .attr('fill','yellow').attr('d','M0,0L10,5L0,10');*/
+    var flows = {},fquant;
     
-    //var stream100s = streams.features.filter(function(d,i,a){return i%100===0});
-
     //add streams to map
     rivers.selectAll("path")
       .data(streams.features)
       .enter().append("path")
         .attr('class', function(d){
           var cls='river flow_q';
-          var val = d.properties.flow && d3.mean(d.properties.flow);
+          var val = d.properties.flow && d.properties.flow.mean;
           if(!val){
             cls+=0;
           } else {
-            cls+=d3.bisectLeft(fquant,d.properties.flow)+1
+            cls+=d3.bisectLeft(fquant,d.properties.flow.mean)+1
           }
           return cls;
         })
-        .attr('id',function(d){return d.properties.rkey})
-        .attr("d", path.projection( projection ))
-        
-    streams.features.forEach(function(d){
-      //rivers.append('use').attr('xlink:href','#rflow')
-      var id = d.properties.rkey,
-      q = d3.bisectLeft(fquant,d.properties.flow),
-      dur = 4-q;
-      if(d.properties.flow){
-        rivers.append('circle').attr("r",2+q*0.5).attr("class","flowmarker").attr('id','f1'+id)
-        .append('animateMotion').attr('dur',dur+'s')
-        .attr('repeatCount','indefinite').attr('rotate','auto-reverse')
-        .append('mpath').attr('xlink:href','#'+id);
-      }
-      if(q>0){
-        rivers.append('circle').attr("r",2+q*0.5).attr("class","flowmarker").attr('id','f2'+id)
-        .append('animateMotion').attr('dur',dur+'s')
-        .attr('repeatCount','indefinite').attr('rotate','auto-reverse').attr('begin',dur/2 + 's;f1'+id+'.begin')
-        .append('mpath').attr('xlink:href','#'+id);
-        /*rivers.append('circle').attr("r",2+q).attr("fill","red").attr('id','f3'+id)
-        .append('animateMotion').attr('dur',dur+'s')
-        .attr('repeatCount','indefinite').attr('rotate','auto-reverse').attr('begin',2*dur/3 + 's;f1'+id+'.begin')
-        .append('mpath').attr('xlink:href','#'+id);*/
-      }
-    });
+        .attr('id',function(d){return 'r'+d.properties.rkey})
+        .attr("d", path.projection( projection ));
+    
+    
+    updaterId = setInterval(function(){
+      cleanTsv(
+      '/remotes/nwi/current?agency_cd=USGS&site_tp_cd=ST&index_pmcode_DATETIME=1&index_pmcode_00060=2&sort_key=site_no&format=rdb'+
+      '&result_md=1&result_md_minutes=2',processFlowUpdate);
+    },2 * 60 * 1000);
 
-      /*setTimeout(moveUse,1);
+    function processFlows (flow) {
+      flow.forEach(function(d,i){
+        var k = +d.site_no;
+        var val = +d.result_va;
+        if(k in sitesById && val!=='' && !isNaN(val)){
+          var props = sitesById[k][0].properties;
+          var rkey = ''+props.rivernum+props.uident+props['name'];
+          props.flow=val;
+          if(rkey in riversByReach){
+            flows[k]=val;
+            if(!riversByReach[rkey][0].properties.flow){
+              riversByReach[rkey][0].properties.flow = {mean:val,count:1};
+              riversByReach[rkey][0].properties.flow[k] = val;
+            } else {
+              var flowdata = riversByReach[rkey][0].properties.flow;
+              if(k in flowdata){
+                flowdata.mean=(flowdata.mean*flowdata.count+val-flowdata[k])/flowdata.count;  
+              } else {
+                flowdata.mean=(flowdata.mean*flowdata.count+val)/(flowdata.count+1);
+                flowdata.count+=1;
+              }
+              flowdata[k]=val;
+            }
+          }
+        }
+      });
+
+      var flowVals = [], k;
       
-      function moveUse(){
-        Array.prototype.slice.call(document.getElementsByTagName('use'))
-        .forEach(function(el){document.getElementById('rivers').appendChild(el)});
-      }*/
+      for (k in riversByReach) {
+          if (riversByReach.hasOwnProperty(k) && riversByReach[k][0].properties.flow) {
+              flowVals.push(riversByReach[k][0].properties.flow.mean);
+          }
+      }
+      
+      flowVals.sort(d3.ascending);
+      
+      fquant = [d3.quantile(flowVals,0.25),
+      d3.quantile(flowVals,0.5),
+      d3.quantile(flowVals,0.75),
+      d3.quantile(flowVals,1.0)];
+    }
+
+    function processFlowUpdate (flowText) {
+      d3.select('#update_time')
+      .text(d3.time.format('%a %b %e %H:%M %p %Y')(new Date()));
+      processFlows(d3.tsv.parse(flowText));
+      streams.features.forEach(function(d){
+        var id = d.properties.rkey,
+            fm1 = rivers.select('#f1'+id);
+        if(d.properties.flow){
+          var q = d3.bisectLeft(fquant,d.properties.flow.mean),
+          dur = 4-q;
+          //intitial flow marker
+          rivers.select('#r'+id).attr('class','river flow_q'+q);
+          if(fm1[0][0]){
+            //update
+            rivers.select('#f1'+id).attr("r",2+q*0.5).select('animateMotion').attr('dur',dur+'s');
+          } else {
+            //new
+            rivers.append('circle').attr("r",2+q*0.5).attr("class","flowmarker").attr('id','f1'+id)
+            .append('animateMotion').attr('dur',dur+'s')
+            .attr('repeatCount','indefinite').attr('rotate','auto-reverse')
+            .append('mpath').attr('xlink:href','#r'+id);
+          }
+          
+          //secondary flow marker
+          var fm2 = rivers.select('#f2'+id);
+          if (q>0){
+            //update 2nd flow marker
+            if(fm2[0][0]){
+              rivers.select('#f2'+id).attr("r",2+q*0.5).select('animateMotion')
+              .attr('dur',dur+'s')
+              .attr('begin',dur/2 + 's;f1'+id+'.begin');
+            } else {
+              //append new 2nd flow marker
+              rivers.append('circle').attr("r",2+q*0.5).attr("class","flowmarker").attr('id','f2'+id)
+              .append('animateMotion').attr('dur',dur+'s')
+              .attr('repeatCount','indefinite').attr('rotate','auto-reverse').attr('begin',dur/2 + 's;f1'+id+'.begin')
+              .append('mpath').attr('xlink:href','#r'+id);
+            }
+          } else if (fm2[0][0]) {
+            //remove 2nd flow marker
+            fm2.remove();
+          }
+        } else if (fm1[0][0]){
+          //remove 1st flow marker
+          fm1.remove();
+          rivers.select('#r'+id).attr('class','river flow_q'+0);
+        }
+      });
+    }
   }
  
   function redraw() {
@@ -204,5 +274,4 @@ svg {
   }
 
   </script>
-  </body>
 </html>
